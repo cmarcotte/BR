@@ -1,5 +1,5 @@
 using DifferentialEquations
-using ODEInterface, ODEInterfaceDiffEq, Sundials
+using ODEInterface, ODEInterfaceDiffEq, Sundials, LSODA
 using ModelingToolkit
 using BenchmarkTools, LinearAlgebra, SparseArrays
 using SparsityDetection
@@ -8,7 +8,7 @@ using Printf
 
 plt.style.use("seaborn-paper")
 
-const N = 50
+const N = 1
 
 function ab(C,V)
 	# eq (13) from original paper
@@ -225,8 +225,8 @@ using OrdinaryDiffEq, ParameterizedFunctions, ODE, ODEInterface,
       ODEInterfaceDiffEq, LSODA, Sundials, DiffEqDevTools
 using Plots; pyplot()	# using gr to plot the WorkPrecisionSet
     
-abstols = 1.0 ./ 10.0 .^ (6:0.5:12)
-reltols = 1.0 ./ 10.0 .^ (4:0.5:10)
+abstols = 1.0 ./ 10.0 .^ (6:1:12)
+reltols = 1.0 ./ 10.0 .^ (4:1:10)
 
 test_sol = TestSolution(SOL)
 
@@ -240,16 +240,18 @@ setups =[
 		Dict(:alg=>KenCarp5(autodiff=false))
 		Dict(:alg=>Vern7())
 		Dict(:alg=>Vern8())
+		Dict(:alg=>lsoda())
 	]
 labels =[
 		"Tsit5"
 		"ROCK4"
-		"CVODE_BDF(:Newton,:GMRES)"
+		"CVODE_BDF"
 		"Rodas5"
 		"Kvaerno5"
 		"KenCarp5"
 		"Vern7"
 		"Vern8"
+		"lsoda"
 	]
 
 

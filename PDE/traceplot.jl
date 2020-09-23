@@ -18,8 +18,8 @@ u0 = BRPDE.u0
 
 # parameters
 p = BRPDE.p
-p[2] = 10.0
-p[4] = 1.0
+p[2] =  50.0
+p[4] = 500.0
 
 accum_fig = plt.figure(figsize=(4,3))
 
@@ -45,7 +45,7 @@ CLs = []
 plt.style.use("seaborn-paper")
 	
 # new tspan
-tspan = [0.0, 1000.0]
+tspan = [0.0, 3000.0]
 
 # run the model
 sol = runprob(prob, u0, p, tspan)
@@ -91,19 +91,26 @@ x = collect(0.0:0.02:((N-1)*0.02))
 
 plt.style.use("seaborn-paper")
 
-fig,axs = plt.subplots(2, 1, figsize=(4,3), sharex=true, gridspec_kw=Dict("height_ratios"=> [3, 1]), constrained_layout=true)
+fig,axs = plt.subplots(3, 1, figsize=(4,3), sharex=true, gridspec_kw=Dict("height_ratios"=> [1, 3, 1]), constrained_layout=true)
 
-pcm = axs[1].pcolormesh(sol.t, x, sol[1:N,:], edgecolor="none", shading="gouraud", rasterized=true, snap=true)
-colorbar(pcm, label="\$ V(t,x) \$", orientation="vertical", ax=axs[1])
-axs[1].set_ylabel("\$ x \$ [cm]")
+print("Ṽ ∈ [$(minimum(sol[Int(4*N/5),:])),$(maximum(sol[Int(4*N/5),:]))]\n")
+
+axs[1].plot(sol.t, sol[Int(4*N/5),:], label="\$ \\tilde{V}(t) \$")
+axs[1].set_ylabel("\$ \\tilde{V}(t) \$\n [mV]")
+axs[1].set_yticks([V90,0.0])
 #axs[1].set_xlabel("\$ t \$ [ms]")
 
-axs[2].plot(sol.t, BRPDE.stimulationcurrent(sol[8N+1,:],p), label="\$ I(t) \$")
-axs[2].set_ylabel("\$ I(t) \$\n[\$\\mu\$A/cm\$^2\$]")
-yl = axs[2].get_ylim()
-axs[2].set_yticks([-p[2], 0.0, p[2]])
-axs[2].set_ylim(yl)
-axs[2].set_xlabel("\$ t \$ [ms]")
+pcm = axs[2].pcolormesh(sol.t, x, sol[1:N,:], edgecolor="none", shading="gouraud", rasterized=true, snap=true)
+colorbar(pcm, label="\$ V(t,x) \$", orientation="vertical", ax=axs[2])
+axs[2].set_ylabel("\$ x \$ [cm]")
+#axs[2].set_xlabel("\$ t \$ [ms]")
+
+axs[3].plot(sol.t, BRPDE.stimulationcurrent(sol[8N+1,:],p), label="\$ I(t) \$")
+axs[3].set_ylabel("\$ I(t) \$\n[\$\\mu\$A/cm\$^2\$]")
+yl = axs[3].get_ylim()
+axs[3].set_yticks([-p[2], 0.0, p[2]])
+axs[3].set_ylim(yl)
+axs[3].set_xlabel("\$ t \$ [ms]")
 
 
 

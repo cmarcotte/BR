@@ -8,7 +8,7 @@ using Printf
 
 plt.style.use("seaborn-paper")
 
-const N = 1
+const N = 50
 
 function ab(C,V)
 	# eq (13) from original paper
@@ -219,7 +219,7 @@ end
 # solve for truth with tight tolerances and a high-order method with a very good interpolant;
 # can't beat Vern9() for this
 SOL = solve(fsprob, Vern9(), abstol=1e-14, reltol=1e-14)
-plottruth(SOL)
+#plottruth(SOL)
 
 using OrdinaryDiffEq, ParameterizedFunctions, ODE, ODEInterface,
       ODEInterfaceDiffEq, LSODA, Sundials, DiffEqDevTools
@@ -257,24 +257,24 @@ labels =[
 
 wp = WorkPrecisionSet(snprob, abstols, reltols, setups; print_names=true, names=labels, appxsol=test_sol, numruns=20, error_estimate=:L2, dense_errors=true)
 Plots.plot(wp)
-Plots.savefig("./N_$(N)_snprob_wp.svg")
+Plots.savefig("./benchmarks/N_$(N)_snprob_wp.svg")
 
 wp = WorkPrecisionSet(sdprob, abstols, reltols, setups; print_names=true, names=labels, appxsol=test_sol, numruns=20, error_estimate=:L2, dense_errors=true)
 Plots.plot(wp)
-Plots.savefig("./N_$(N)_sdprob_wp.svg")
+Plots.savefig("./benchmarks/N_$(N)_sdprob_wp.svg")
 
 wp = WorkPrecisionSet(ssprob, abstols, reltols, setups; print_names=true, names=labels, appxsol=test_sol, numruns=20, error_estimate=:L2, dense_errors=true)
 Plots.plot(wp)
-Plots.savefig("./N_$(N)_ssprob_wp.svg")
+Plots.savefig("./benchmarks/N_$(N)_ssprob_wp.svg")
 
 wp = WorkPrecisionSet(fnprob, abstols, reltols, setups; print_names=true, names=labels, appxsol=test_sol, numruns=20, error_estimate=:L2, dense_errors=true)
 Plots.plot(wp)
-Plots.savefig("./N_$(N)_fnprob_wp.svg")
+Plots.savefig("./benchmarks/N_$(N)_fnprob_wp.svg")
 
 wp = WorkPrecisionSet(fdprob, abstols, reltols, setups; print_names=true, names=labels, appxsol=test_sol, numruns=20, error_estimate=:L2, dense_errors=true)
 Plots.plot(wp)
-Plots.savefig("./N_$(N)_fdprob_wp.svg")
+Plots.savefig("./benchmarks/N_$(N)_fdprob_wp.svg")
 
 wp = WorkPrecisionSet(fsprob, abstols, reltols, setups; print_names=true, names=labels, appxsol=test_sol, numruns=20, error_estimate=:L2, dense_errors=true)
 Plots.plot(wp)
-Plots.savefig("./N_$(N)_fsprob_wp.svg")
+Plots.savefig("./benchmarks/N_$(N)_fsprob_wp.svg")

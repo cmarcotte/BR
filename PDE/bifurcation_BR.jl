@@ -20,7 +20,7 @@ u0 = BRPDE.u0
 
 # parameters
 p = BRPDE.p
-p[2] = 45.0; p[4] = 500.0
+p[2] = 78.0; p[4] = 500.0
 
 # define V90 threshold
 V90 = BRPDE.V90
@@ -33,10 +33,10 @@ runprob = BRPDE.runprob
 tspan = [0.0, 20000.0]
 
 # BCL sweep range
-BCL_range = 1000.0:-2.0:40.0
+BCL_range = 400.0:-2.0:40.0
 
 # savefile
-savefile = "data_$(p[2])_$(p[4]).jld2"
+savefile = "/data/data_$(p[2])_$(p[4]).jld2"
 
 function loaddata(savefile)
 	

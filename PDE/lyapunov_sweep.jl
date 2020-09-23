@@ -53,7 +53,7 @@ function pltandsave(BCL_range, A_range, LEs)
 		end
 	end
 	plt.xlabel("BCL [ms]")
-	plt.ylabel("\$A [\\mu\\$ A/cm\$^2\$]")
+	plt.ylabel("\$A\$ [\\mu A/cm\$^2\$]")
 
 	tight_layout()
 	savefig("_BCL_A_LE_$(p[4]).pdf")
@@ -143,7 +143,7 @@ function sweep(BCL_range, A_range, LEs)
 end
 
 # range for BCL
-BCL_range = 400.0:-10.0:40.0
+BCL_range = 200.0:-5.0:40.0
 
 # range for A
 A_range = 10.0:2.0:100.0

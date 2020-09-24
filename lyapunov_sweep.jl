@@ -51,7 +51,7 @@ function pltandsave(BCL_range, A_range, LEs)
 		end
 	end
 	plt.xlabel("BCL [ms]")
-	plt.ylabel("\$A\$ [mV/cm\$^2\$]")
+	plt.ylabel("\$A\$ [\$\\mathrm{\\mu A/cm}^2\$]")
 
 	tight_layout()
 	savefig("_BCL_A_LE_$(p[4]).pdf")

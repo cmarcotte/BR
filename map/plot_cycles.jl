@@ -66,21 +66,21 @@ for n = 1:10
 				# solve for orbit at exact c using nearby
 				X = newton!(X,p; K=24)
 				
-				# check prime periodicity
-				if n > 1
-					for mm=2:n
-						if isapprox(X[mm],X[1])
-							X = X[1:(mm-1)]
-							break
-						end
-					end
-				end
-				
 				# compute stability
 				L = det(dF(X,p)+I)
 				
 			end
-	
+			
+			# check prime periodicity
+			if n > 1
+				for mm=2:n
+					if isapprox(X[mm],X[1])
+						X = X[1:(mm-1)]
+						break
+					end
+				end
+			end
+			
 			#if n==1
 			#	lss="none"
 			#else
@@ -133,8 +133,8 @@ for n = 1:10
 					offset = 0
 				end
 				
-				plot(1:totalcyclelength, offset .+ pltX, ls=lss, ms=mss, color=col, alpha=0.3, label="")
-				plot(1:n, offset .+ X, ls=lss, ms=mss, color=col, marker=".", alpha=1.0, label="$(n)-cycle")
+				plot(1:totalcyclelength, offset .+ pltX, ls=lss, ms=mss, color=col, alpha=0.3, label="", zorder=11-n)
+				plot(1:n, offset .+ X, ls=lss, ms=mss, color=col, marker=".", alpha=1.0, label="$(n)-cycle", zorder=11-n)
 				
 				tight_layout()
 				savefig(figfile, bbox_inches="tight", pad_inches=0.0, dpi=300)

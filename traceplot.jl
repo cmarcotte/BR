@@ -19,8 +19,10 @@ u0 = BR.u0
 # parameters
 p = BR.p
 p[2] = 10.0
-p[3] = 5.00
 p[4] = 500.0
+
+BCL =100.0
+f = 1000.0/BCL; if p[4] > 1 && mod(p[4],2) == 0; f = f/2.0; end; p[3] = f;
 
 # define V90 threshold
 V90 = BR.V90
@@ -41,7 +43,7 @@ CLs = []
 plt.style.use("seaborn-paper")
 	
 # new tspan
-tspan = [0.0, 5000.0]
+tspan = [0.0, 3000.0]
 
 # run the model
 sol = runprob(prob, u0, p, tspan)
@@ -65,31 +67,34 @@ for n in 2:length(t)
 	
 end
 
-# plot the solution, with the APD/DI boundary points
-fig,axs = plt.subplots(3,1,figsize=(4,3), sharex=true, gridspec_kw=Dict("height_ratios"=> [2, 1, 5]), constrained_layout=true)
 
-axs[1].plot(t./1000.0, BR.stimulationcurrent(sol[9,:],p))
-axs[1].set_ylabel("\$ I(t) \$ \n [\$\\mu\$A/cm\$^2\$]")
-yl = axs[1].get_ylim()
-axs[1].set_yticks([-p[2],0.0,p[2]])
-axs[1].set_yticklabels(["",0,"\$ A \$"])
-axs[1].set_ylim(yl)
 
-axs[2].eventplot(APD./1000.0, color="black", lineoffsets=[+1],linelengths=[2])
-axs[2].eventplot(DI./1000.0,color="red", lineoffsets=[-1],linelengths=[2])
-axs[2].set_yticks([])
-axs[2].set_ylabel("AP")
+plt.style.use("seaborn-paper")
 
-axs[3].plot(t./1000.0, V)
-axs[3].set_ylabel("\$ V(t) \$ [mV]")
-axs[3].set_yticks([V90, 0.0])
-axs[3].set_yticklabels(["\$V_{90}\$", 0])
-#axs[3].plot(APD./1000.0, V90*ones(size(APD)), ls="none", marker=".", ms=5.0, color="black", label="")
-#axs[3].plot( DI./1000.0, V90*ones(size( DI)), ls="none", marker=".", ms=5.0, color="red", label="")
-axs[3].set_xlabel("\$ t \$ [s]")
+fig,axs = plt.subplots(3, 1, figsize=(4,3), sharex=true, gridspec_kw=Dict("height_ratios"=> [1, 6, 2]), constrained_layout=true)
 
-#tight_layout()
-savefig("./f_$(p[2])_$(p[3])_$(p[4]).pdf")
+print("Ṽ ∈ [$(minimum(V)),$(maximum(V))]\n")
 
+axs[1].eventplot(APD, color="black", lineoffsets=[+1],linelengths=[2])
+axs[1].eventplot(DI,color="red", lineoffsets=[-1],linelengths=[2])
+axs[1].set_yticks([])
+axs[1].set_ylabel("AP")
+
+axs[2].plot(t, V, label="\$ V(t) \$")
+axs[2].set_ylabel("\$ V(t) \$\n [mV]")
+axs[2].set_yticks([V90,0.0])
+
+
+
+
+
+axs[3].plot(t, BR.stimulationcurrent(sol[9,:],p), label="\$ I(t) \$")
+axs[3].set_ylabel("\$ I(t) \$\n[\$\\mu\$A/cm\$^2\$]")
+yl = axs[3].get_ylim()
+axs[3].set_yticks([-p[2], 0.0, p[2]])
+axs[3].set_ylim(yl)
+axs[3].set_xlabel("\$ t \$ [ms]")
+
+
+savefig("./figures/BCL_$(BCL)_sol.pdf", dpi=300)
 close()
-

@@ -63,7 +63,7 @@ try
 	global DIs  = load(savefile,"DIs" )
 	global BCLs = load(savefile,"BCLs")
 	global ALEs = load(savefile,"ALEs")
-	global DLEs = load(savefile,"ALEs")
+	global DLEs = load(savefile,"DLEs")
 	global DDEs = load(savefile,"DDEs")
 	global ADEs = load(savefile,"ADEs")
 	

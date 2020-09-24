@@ -89,7 +89,7 @@ colorbar(pcm, label="\$ V(t,x) \$", orientation="vertical", ax=axs[3])
 axs[3].set_ylabel("\$ x \$ [cm]")
 
 axs[4].plot(t, BRPDE.stimulationcurrent(sol[8*BRPDE.N+1,:],p), label="\$ I(t) \$")
-axs[4].set_ylabel("\$ I(t) \$\n[\$\\mu\$A/cm\$^2\$]")
+axs[4].set_ylabel("\$I(t)\$ [\$\\mathrm{\\mu A/cm}^2\$]")
 yl = axs[4].get_ylim()
 axs[4].set_yticks([-p[2], 0.0, p[2]])
 axs[4].set_ylim(yl)

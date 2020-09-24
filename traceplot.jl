@@ -89,7 +89,7 @@ axs[2].set_yticks([V90,0.0])
 
 
 axs[3].plot(t, BR.stimulationcurrent(sol[9,:],p), label="\$ I(t) \$")
-axs[3].set_ylabel("\$ I(t) \$\n[\$\\mu\$A/cm\$^2\$]")
+axs[3].set_ylabel("\$I(t)\$ [\$\\mathrm{\\mu A/cm}^2\$]")
 yl = axs[3].get_ylim()
 axs[3].set_yticks([-p[2], 0.0, p[2]])
 axs[3].set_ylim(yl)

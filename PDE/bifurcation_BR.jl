@@ -20,7 +20,7 @@ u0 = BRPDE.u0
 
 # parameters
 p = BRPDE.p
-p[2] = 78.0; p[4] = 500.0
+p[2] = 100.0; p[4] = 500.0
 
 # define V90 threshold
 V90 = BRPDE.V90
@@ -36,7 +36,7 @@ tspan = [0.0, 20000.0]
 BCL_range = 400.0:-2.0:40.0
 
 # savefile
-savefile = "/data/data_$(p[2])_$(p[4]).jld2"
+savefile = "./data/data_$(p[2])_$(p[4]).jld2"
 
 function loaddata(savefile)
 	
@@ -90,14 +90,14 @@ function sweep(BCL_range, savefile, prob, u0, p, tspan, V90)
 		
 		# plot sol
 		if isapprox(BCL,1000.0) || isapprox(BCL,400.0) || isapprox(BCL,130.0)
-			BRPDE.pltsol(sol,p)
+			BRPDE.pltsol(sol,p;preprendname="./figures/")
 	
 			hist(diff(sol.t[:]),bins="auto",density=true,histtype="step")
 			xscale("log")
 			yscale("log")
 			xlabel("\$ h_t \$")
 			ylabel("\$ P(h_t) \$")
-			savefig("./dt_hist.pdf")
+			savefig("./figures/dt_hist.pdf")
 			close()
 		end
 

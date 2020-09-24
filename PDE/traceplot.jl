@@ -18,12 +18,12 @@ u0 = BRPDE.u0
 
 # parameters
 p = BRPDE.p
-p[2] =  50.0
+p[2] =  78.0
 p[4] = 500.0
 
 accum_fig = plt.figure(figsize=(4,3))
 
-BCL = 1000.0/6.0
+BCL =100.0
 f = 1000.0/BCL; if p[4] > 1 && mod(p[4],2) == 0; f = f/2.0; end; p[3] = f;
 
 # define V90 threshold

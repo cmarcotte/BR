@@ -11,6 +11,14 @@ using LinearAlgebra
 
 plt.style.use("seaborn-paper")
 
+spaced = true
+
+if spaced
+	figfile="./spacedcyclediag.pdf"
+else
+	figfile="./cyclediag.pdf"
+end
+
 function newton!(x,p; K=24, tol=1e-13)
 
     k = 0
@@ -43,7 +51,7 @@ c = 90.0
 figure(figsize=(4,2.5))
 
 # figure cycle length for plotting
-totalcyclelength=15
+totalcyclelength=18
 
 # looping
 for n = 1:10
@@ -119,12 +127,17 @@ for n = 1:10
 					pltX[m] = X[1+mod(m-1,length(X))]
 				end
 				
-				plot(1:totalcyclelength, pltX, ls=lss, ms=mss, color=col, alpha=0.3, label="")
-				plot(1:n, X, ls=lss, ms=mss, color=col, marker=".", alpha=1.0, label="$(n)-cycle")
+				if spaced
+					offset = (n-1)*50
+				else
+					offset = 0
+				end
 				
+				plot(1:totalcyclelength, offset .+ pltX, ls=lss, ms=mss, color=col, alpha=0.3, label="")
+				plot(1:n, offset .+ X, ls=lss, ms=mss, color=col, marker=".", alpha=1.0, label="$(n)-cycle")
 				
 				tight_layout()
-				savefig("./cyclediag.pdf", bbox_inches="tight", pad_inches=0.0, dpi=300)
+				savefig(figfile, bbox_inches="tight", pad_inches=0.0, dpi=300)
 				
 				break
 			end
@@ -136,11 +149,14 @@ end
 legend(loc="lower left", ncol=3, edgecolor="none", bbox_to_anchor= (0.0, 1.01))
 #xlim([0.5,totalcyclelength+0.5])
 xticks(collect(1:1:totalcyclelength))
-ylim([0,320])
+#ylim([0,320])				
+if spaced
+	yticks([])
+end
 xlabel("\$n\$")
 ylabel("\$a_n\$")
 #title("\$c=$(c)\$")
 
 tight_layout()
-savefig("./cyclediag.pdf")
+savefig(figfile, bbox_inches="tight", pad_inches=0.0, dpi=300)
 close()

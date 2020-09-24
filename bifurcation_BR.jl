@@ -55,7 +55,7 @@ DDEs = []
 # BCL sweep range
 BCL_range = 1000.0:-2.0:40.0
 
-savefile = "data_$(p[2])_$(p[4]).jld2"
+savefile = "./data/data_$(p[2])_$(p[4]).jld2"
 
 try
 	global APDs = load(savefile,"APDs")

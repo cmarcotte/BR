@@ -15,10 +15,10 @@ end
 
 # the next few functions corresponds to asymptotic reduction of gates
 # given:
-#	q'	= a*(1-q) + b*q 
+#	q'	= a*(1-q) - b*q 
 # where a=a(V) and b=b(V), then 
 #        tau_q	= 1/(a+b)
-#         q_oo	= a/(a+b)?
+#         q_oo	= a/(a+b)
 
 function X(V)
 	ax = ab([ 0.0005, 0.083, 50.0, 0.0, 0.0, 0.057, 1.0],V[n])

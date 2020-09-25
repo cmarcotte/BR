@@ -86,8 +86,6 @@ function sweep(BCL_range, savefile, prob, u0, p, tspan, V90)
 		println("Running BCL=$(BCL).\n")
 		
 		# remake prob with new u0, p, and tspan and solve
-		sol = runprob(prob,u0,p,(0.0,5000.0))
-		u0=sol[:,end]
 		sol = runprob(prob,u0,p,tspan)
 		
 		# plot sol

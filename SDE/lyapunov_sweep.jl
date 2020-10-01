@@ -27,7 +27,7 @@ u0 = BR.u0
 # parameters
 p = BR.p
 # mod p?
-p[4] = 1.0
+p[4] = 500.0
 
 function pltandsave(BCL_range, A_range, LEs)
 

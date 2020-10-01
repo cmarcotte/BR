@@ -15,7 +15,7 @@ function stimulationcurrent(oscillatorcomponent,p)
 	return p[2].*oscillatorcomponent.^p[4]
 end
 
-function Casmoother(Ca; ep=1e-7)
+function Casmoother(Ca; ep=1e-10)
 	return ep*0.5*(1.0 + tanh(1.0-(Ca/ep))) + Ca*0.5*(1.0 + tanh((Ca/ep)-1.0))
 end
 
@@ -69,14 +69,13 @@ end
 function noise!(dx, x, p, t)
 	
 	# current noise
-	dx[1] = 1.0/p[1]
+	#dx[1] = stimulationcurrent(x[8N+1],p)/p[1]
 	# calcium noise
-	#dx[2] = 1e-7; 
+	dx[2] = x[2]; 
 	# gatings noise
-	#dx[3:8] = 1.0
+	#dx[3:8] .= 1.0
 	# noisy amplitude and phase of forcing oscillator
-	#dx[9]  = 1.0
-	#dx[10] = 1.0
+	#dx[9:10] .= 0.05
 
 	return nothing
 	

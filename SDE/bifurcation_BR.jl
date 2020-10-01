@@ -20,7 +20,7 @@ u0 = BR.u0
 
 # parameters
 p = BR.p
-p[2] = 8.0; p[4] = 500.0
+p[2] = 2.3; p[4] = 1.0
 
 # define V90 threshold
 V90 = BR.V90

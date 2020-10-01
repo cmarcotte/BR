@@ -18,10 +18,10 @@ u0 = BR.u0
 
 # parameters
 p = BR.p
-p[2] = 2.3
-p[4] = 1.0
+p[2] = 10.0
+p[4] = 500.0
 
-BCL =1000.0/1.25
+BCL =1000.0/1.30
 f = 1000.0/BCL; if p[4] > 1 && mod(p[4],2) == 0; f = f/2.0; end; p[3] = f;
 
 # define V90 threshold
@@ -43,7 +43,7 @@ CLs = []
 plt.style.use("seaborn-paper")
 	
 # new tspan
-tspan = [0.0, 3000.0]
+tspan = [0.0, 5000.0]
 
 # run the model
 sol = runprob(prob, u0, p, tspan)

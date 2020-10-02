@@ -18,10 +18,10 @@ u0 = BR.u0
 
 # parameters
 p = BR.p
-p[2] = 10.0
-p[4] = 500.0
+p[2] = 2.3
+p[4] = 1.0
 
-BCL =1000.0/1.30
+BCL = 1000.0/6.25
 f = 1000.0/BCL; if p[4] > 1 && mod(p[4],2) == 0; f = f/2.0; end; p[3] = f;
 
 # define V90 threshold

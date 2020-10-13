@@ -36,7 +36,7 @@ runprob = BR.runprob
 tspan = [0.0, 20000.0]
 
 # BCL sweep range
-BCL_range = 1000.0:-2.0:300.0
+BCL_range = 1000.0:-5.0:40.0
 
 # init
 BCL = BCL_range[1]; f = 1000.0/BCL; if p[4] > 1 && mod(p[4],2) == 0; f = f/2.0; end; p[3] = f;
@@ -55,6 +55,7 @@ function F!(F,x,p,tspan)
 	return nothing
 end
 
+# J! computes Jacobian of orbit, not Jacobian of F!; if you try to use for latter, it will blow up
 function J!(J,x,p,tspan; h=1e-4)
 	sol = runprob(prob, x, p, tspan)
 	for n=1:length(x)
@@ -64,6 +65,7 @@ function J!(J,x,p,tspan; h=1e-4)
 		J[:,n] = sol1[end] .- sol[end]
 	end
 	J .= J./h
+	return nothing
 end
 
 function decompose_solution(sol)
@@ -130,7 +132,7 @@ end
 
 function resolve_PO(u0,p,tspan,POs)
 
-	res = nlsolve((F,u)->(F!(F,u,p,tspan)),u0; show_trace=true) # including J! diverges, because J! computes the Jacobian of the orbit, not the PO condition
+	res = nlsolve((F,u)->(F!(F,u,p,tspan)),u0; show_trace=true, iterations=10000) 
 	u0 = res.zero
 	
 	J = zeros(Float64, length(u0), length(u0))
@@ -152,9 +154,13 @@ function plotPOs(POs)
 	fig,axs = plt.subplots(2,1,figsize=(4,3), sharex=true)
 	axs[2].plot([0.0, 1000.0], [0.0, 0.0], color="red", label="")
 	for PO in POs
-		
-		axs[1].plot(ones(length(PO[:APD])).*PO[:tspan][2], PO[:APD], ls="none", marker=".", markersize=3.0, color="black", label="", alpha=1.0/length(PO[:APD]))
-		axs[2].plot(ones(length(PO[:Λ])).*PO[:tspan][2], real.(log.(Complex.(PO[:Λ]))./PO[:tspan][2]), ls="none", marker=".", markersize=3.0, color="black", label="", alpha=1.0/length(PO[:Λ]))
+		if maximum(abs.(PO[:Λ])) > 1.0
+			ms = 5.0
+		else
+			ms = 3.0
+		end
+		axs[1].plot(ones(length(PO[:APD])).*PO[:tspan][2], PO[:APD], ls="none", marker=".", markersize=ms, color="black", label="")
+		axs[2].plot(ones(length(PO[:Λ])).*PO[:tspan][2], real.(log.(Complex.(PO[:Λ]))./PO[:tspan][2]), ls="none", marker=".", markersize=3.0, color="black", label="", alpha=0.3)
 	
 	end
 	axs[2].set_xlabel("BCL [ms]")

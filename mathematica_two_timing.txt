@@ -6,6 +6,10 @@ INa[x_]:= (4.0*x[[4]]*x[[4]]*x[[4]]*x[[5]]*x[[6]]+0.003)*(x[[1]]-50.0)
 
 Is[x_]:=0.09*x[[7]]*x[[8]]*(x[[1]]+82.3+13.0287*Log[x[[2]]])
 
+serexp = { V -> Sum[ w^-n VV[n][t,T[t]], {n,0,2}], Ca -> Sum[w^-n CC[n][t,T[t]], {n,0,2}], X->Sum[w^-n XX[n][t,T[t]], {n,0,2}] }
+asyrep = { m->am[x]/(am[x]+bm[x]), h->ah[x]/(ah[x]+bh[x]), j->aj[x]/(aj[x]+bj[x]), d->ad[x]/(ad[x]+bd[x]), f->af[x]/(af[x]+bf[x]) } // Simplify
+IDs    = { D[T[t],t]->w }
+
 ab[C_,V_]:=(C[[1]]*Exp[C[[2]]*(V+C[[3]])]+C[[4]]*(V+C[[5]]))/(Exp[C[[6]]*(V+C[[3]])]+C[[7]])   
 
 ax[x_]:= ab[{ 0.0005, 0.083, 50.0, 0.0, 0.0, 0.057, 1.0},x[[1]]]
@@ -24,8 +28,11 @@ bf[x_]:= ab[{ 0.0065,-0.02 , 30.0, 0.0, 0.0,-0.2  , 1.0},x[[1]]]
 F[x_]:= {A*Cos[t]^p-(IK[x] + Ix[x] + INa[x] + Is[x]), -10^-7 * Is[x] + 0.07*(10^-7 - x[[2]]), ax[x]*(1-x[[3]])-bx[x]*x[[3]], am[x]*(1-x[[4]])-bm[x]*x[[4]], ah[x]*(1-x[[5]])-bh[x]*x[[5]], aj[x]*(1-x[[6]])-bj[x]*x[[6]], ad[x]*(1-x[[7]])-bd[x]*x[[7]], af[x]*(1-x[[8]])-bf[x]*x[[8]]}
 
 x = {V,Ca,X,m,h,j,d,f};
-expser={V -> Sum[ w^-n VV[n][t,T[t]], {n,0,2}], Ca -> Sum[w^-n CC[n][t,T[t]], {n,0,2}], X->Sum[w^-n XX[n][t,T[t]], {n,0,2}], m->am[x]/(am[x]+bm[x]), h->ah[x]/(ah[x]+bh[x]), j->aj[x]/(aj[x]+bj[x]), d->ad[x]/(ad[x]+bd[x]), f->af[x]/(af[x]+bf[x])}
 
-IDs = {D[T[t],t]->w}
+eqs0 = D[x,t] - F[x]	// Simplify
 
-eqs = D[x/.expser,t]/.IDs - F[x]/.expser/.IDs
+eqs1 = eqs0/.asyrep 	// Simplify
+
+eqs2 = eqs1/.serexp 	// Simplify
+
+eqs3 = eqs2/.IDs	// Simplify

@@ -36,7 +36,7 @@ runprob = BR.runprob
 tspan = [0.0, 20000.0]
 
 # BCL sweep range
-BCL_range = 1000.0:-5.0:40.0
+BCL_range = 1000.0:-8.0:40.0
 
 # init
 BCL = BCL_range[1]; f = 1000.0/BCL; if p[4] > 1 && mod(p[4],2) == 0; f = f/2.0; end; p[3] = f;
@@ -146,11 +146,7 @@ function resolve_PO(u0,p,tspan,POs)
 	dsol = runprob(prob, sol[:,n], p, tspan)
 	APD, DI, APA = decompose_solution(dsol)
 	
-<<<<<<< HEAD
 	push!(POs, Dict( :u => u0, :p => p, :tspan => tspan, :Λ => Λ, :APD => APD, :DI => DI, :APA => APA ))
-=======
-	push!(POs, Dict( :u => u0, :p => p, :tspan => tspan, :sol => sol, :Λ => Λ, :APD => APD, :DI => DI, :APA => APA ))
->>>>>>> 71a0fc71f4f31b700efb72841b958dac1129c228
 end
 
 function plotPOs(POs)

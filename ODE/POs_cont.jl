@@ -146,7 +146,11 @@ function resolve_PO(u0,p,tspan,POs)
 	dsol = runprob(prob, sol[:,n], p, tspan)
 	APD, DI, APA = decompose_solution(dsol)
 	
+<<<<<<< HEAD
 	push!(POs, Dict( :u => u0, :p => p, :tspan => tspan, :Λ => Λ, :APD => APD, :DI => DI, :APA => APA ))
+=======
+	push!(POs, Dict( :u => u0, :p => p, :tspan => tspan, :sol => sol, :Λ => Λ, :APD => APD, :DI => DI, :APA => APA ))
+>>>>>>> 71a0fc71f4f31b700efb72841b958dac1129c228
 end
 
 function plotPOs(POs)

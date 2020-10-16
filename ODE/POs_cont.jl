@@ -36,7 +36,7 @@ runprob = BR.runprob
 tspan = [0.0, 20000.0]
 
 # BCL sweep range
-BCL_range = 1000.0:-8.0:40.0
+BCL_range = 1000.0:-5.0:40.0
 
 # init
 BCL = BCL_range[1]; f = 1000.0/BCL; if p[4] > 1 && mod(p[4],2) == 0; f = f/2.0; end; p[3] = f;
@@ -56,7 +56,7 @@ function F!(F,x,p,tspan)
 end
 
 # J! computes Jacobian of orbit, not Jacobian of F!; if you try to use for latter, it will blow up
-function J!(J,x,p,tspan; h=1e-4)
+function J!(J,x,p,tspan; h=1e-5)
 	sol = runprob(prob, x, p, tspan)
 	for n=1:length(x)
 		y = copy(x)
@@ -154,7 +154,7 @@ function plotPOs(POs)
 	fig,axs = plt.subplots(2,1,figsize=(4,3), sharex=true)
 	axs[2].plot([0.0, 1000.0], [0.0, 0.0], color="red", label="")
 	for PO in POs
-		if maximum(abs.(PO[:Λ])) > 1.0
+		if maximum(abs.(PO[:Λ])) > 1.05 # some wiggle room
 			ms = 5.0
 		else
 			ms = 3.0

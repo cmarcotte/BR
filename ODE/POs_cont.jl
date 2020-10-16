@@ -30,7 +30,22 @@ V90 = BR.V90
 
 # get prob from BR 
 prob = BR.prob
-runprob = BR.runprob
+
+#=
+	Using CVODE_BDF(linear_solver=:GMRES) seems to work for this,
+	but I wonder if more accurate using less efficient, 
+	but less approximate, method, like Tsit5().
+=#
+
+#runprob = BR.runprob
+function runprob(prob,u0,p,tspan)
+	prob = remake(prob, u0=u0, p=p, tspan=tspan)
+	
+	sol = solve(prob, Tsit5(), abstol=1e-12, reltol=1e-9, maxiters=Int(1e6))
+	
+	return sol
+	
+end
 
 # new tspan
 tspan = [0.0, 20000.0]
@@ -172,7 +187,7 @@ function plotPOs(POs)
 	axs[2].set_ylabel("\$ T^{-1} \\ln(\\Lambda) = \\lambda \$ [1/ms]")
 	#axs[2].set_xlim([0.0,400.0])
 	tight_layout()
-	savefig("./figures/POs.pdf")
+	savefig("./figures/POs_Tsit5.pdf")
 	close()
 end
 
@@ -191,7 +206,7 @@ for BCL in BCL_range[2:end]
 	plotPOs(POs)
 	
 	# save data
-	@save "./data/POs.jld2" POs
+	@save "./data/POs_Tsit5.jld2" POs
 end
 
 

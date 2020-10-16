@@ -56,7 +56,11 @@ function F!(F,x,p,tspan)
 end
 
 # J! computes Jacobian of orbit, not Jacobian of F!; if you try to use for latter, it will blow up
+<<<<<<< HEAD
 function J!(J,x,p,tspan; h=1e-5)
+=======
+function J!(J,x,p,tspan; h=1e-6)
+>>>>>>> 6e3a84f4bc655a039ca147fc4afadbf2d743af37
 	sol = runprob(prob, x, p, tspan)
 	for n=1:length(x)
 		y = copy(x)

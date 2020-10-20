@@ -18,10 +18,10 @@ u0 = BR.u0
 
 # parameters
 p = BR.p
-p[2] = 2.3
-p[4] = 1.0
+p[2] = 10.0
+p[4] = 500.0
 
-BCL =1000.0/1.25
+BCL =100.0
 f = 1000.0/BCL; if p[4] > 1 && mod(p[4],2) == 0; f = f/2.0; end; p[3] = f;
 
 # define V90 threshold
@@ -89,7 +89,7 @@ axs[2].set_yticks([V90,0.0])
 
 
 axs[3].plot(t, BR.stimulationcurrent(sol[9,:],p), label="\$ I(t) \$")
-axs[3].set_ylabel("\$I(t)\$ [\$\\mathrm{\\mu A/cm}^2\$]")
+axs[3].set_ylabel("\$I(t)\$\n[\$\\mathrm{\\mu A/cm}^2\$]")
 yl = axs[3].get_ylim()
 axs[3].set_yticks([-p[2], 0.0, p[2]])
 axs[3].set_ylim(yl)

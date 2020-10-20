@@ -30,14 +30,13 @@ V90 = BR.V90
 
 # get prob from BR 
 prob = BR.prob
-
+runprob = BR.runprob
 #=
 	Using CVODE_BDF(linear_solver=:GMRES) seems to work for this,
 	but I wonder if more accurate using less efficient, 
 	but less approximate, method, like Tsit5().
-=#
+	Yes, but much (100x) slower?
 
-#runprob = BR.runprob
 function runprob(prob,u0,p,tspan)
 	prob = remake(prob, u0=u0, p=p, tspan=tspan)
 	
@@ -46,6 +45,7 @@ function runprob(prob,u0,p,tspan)
 	return sol
 	
 end
+=#
 
 # new tspan
 tspan = [0.0, 20000.0]
@@ -148,20 +148,22 @@ end
 function resolve_PO(u0,p,tspan,POs)
 
 	res = nlsolve((F,u)->(F!(F,u,p,tspan)),u0; show_trace=true, iterations=10000) 
-	u0 = res.zero
-	
-	J = zeros(Float64, length(u0), length(u0))
-	J!(J, u0, p, tspan)
-	Λ = eigvals(J)
-	
-	sol = runprob(prob, u0, p, (tspan[1],tspan[2]*2.0))
+	if res.f_converged
+		u0 = res.zero
+		
+		J = zeros(Float64, length(u0), length(u0))
+		J!(J, u0, p, tspan)
+		Λ = eigvals(J)
+		
+		sol = runprob(prob, u0, p, (tspan[1],tspan[2]*2.0))
 
-	V = sol[1,:]
-	n=1; while V[n] > BR.V90; n=n+1; end;
-	dsol = runprob(prob, sol[:,n], p, tspan)
-	APD, DI, APA = decompose_solution(dsol)
-	
-	push!(POs, Dict( :u => u0, :p => p, :tspan => tspan, :Λ => Λ, :APD => APD, :DI => DI, :APA => APA ))
+		V = sol[1,:]
+		n=1; while V[n] > BR.V90; n=n+1; end;
+		dsol = runprob(prob, sol[:,n], p, tspan)
+		APD, DI, APA = decompose_solution(dsol)
+		
+		push!(POs, Dict( :u => u0, :p => p, :tspan => tspan, :Λ => Λ, :APD => APD, :DI => DI, :APA => APA ))
+	end
 end
 
 function plotPOs(POs)
@@ -183,7 +185,7 @@ function plotPOs(POs)
 	axs[2].set_ylabel("\$ T^{-1} \\ln(\\Lambda) = \\lambda \$ [1/ms]")
 	#axs[2].set_xlim([0.0,400.0])
 	tight_layout()
-	savefig("./figures/POs_Tsit5.pdf")
+	savefig("./figures/POs.pdf")
 	close()
 end
 
@@ -202,7 +204,7 @@ for BCL in BCL_range[2:end]
 	plotPOs(POs)
 	
 	# save data
-	@save "./data/POs_Tsit5.jld2" POs
+	@save "./data/POs.jld2" POs
 end
 
 

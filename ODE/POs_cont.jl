@@ -172,9 +172,9 @@ function plotPOs(POs)
 	axs[2].plot([0.0, 1000.0], [0.0, 0.0], color="red", label="")
 	for PO in POs
 		if maximum(abs.(PO[:Λ])) > 1.05 # some wiggle room
-			ms = 5.0
-		else
 			ms = 3.0
+		else
+			ms = 5.0
 		end
 		axs[1].plot(ones(length(PO[:APD])).*PO[:tspan][2], PO[:APD], ls="none", marker=".", markersize=ms, color="black", label="")
 		axs[2].plot(ones(length(PO[:Λ])).*PO[:tspan][2], real.(log.(Complex.(PO[:Λ]))./PO[:tspan][2]), ls="none", marker=".", markersize=3.0, color="black", label="", alpha=0.3)

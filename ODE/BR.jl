@@ -82,7 +82,7 @@ function runprob(prob,u0,p,tspan)
 
 	prob = remake(prob, u0=u0, p=p, tspan=tspan)
 	
-	sol = solve(prob, CVODE_BDF(linear_solver=:GMRES), abstol=1e-12, reltol=1e-9, maxiters=Int(1e6))
+	sol = solve(prob, CVODE_BDF(linear_solver=:GMRES), abstol=1e-13, reltol=1e-13, maxiters=Int(1e6))
 	
 	return sol
 	

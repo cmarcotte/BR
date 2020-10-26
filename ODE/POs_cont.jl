@@ -36,15 +36,7 @@ runprob = BR.runprob
 	but I wonder if more accurate using less efficient, 
 	but less approximate, method, like Tsit5().
 	Yes, but much (100x) slower?
-
-function runprob(prob,u0,p,tspan)
-	prob = remake(prob, u0=u0, p=p, tspan=tspan)
-	
-	sol = solve(prob, Tsit5(), abstol=1e-12, reltol=1e-9, maxiters=Int(1e6))
-	
-	return sol
-	
-end
+	Just use CVODE_BDF but with much tighter tolerances?
 =#
 
 # new tspan
@@ -148,7 +140,7 @@ end
 function resolve_PO(u0,p,tspan,POs)
 
 	res = nlsolve((F,u)->(F!(F,u,p,tspan)),u0; show_trace=true, iterations=10000) 
-	if res.f_converged
+	if res.f_converged || res.x_converged || res.residual_norm < 1e-6 * norm(u0)
 		u0 = res.zero
 		
 		J = zeros(Float64, length(u0), length(u0))

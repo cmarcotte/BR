@@ -11,6 +11,8 @@ using ForwardDiff, LinearAlgebra
 
 using DynamicalSystems
 
+plt.style.use("seaborn-paper")
+
 function ab(C,V)
 	# eq (13) from original paper
 	return (C[1]*exp(C[2]*(V+C[3]))+C[4]*(V+C[5]))/(exp(C[6]*(V+C[3]))+C[7])
@@ -204,24 +206,31 @@ function build_data(POs, BCLs, APDs, APAs, DIs, FMLs, prob=prob, lowind=1)
 
 	for n=lowind:length(POs)
 
-		prob = remake(prob, u0=POs[n].state[:,1], p=(C=1.0, A=2.3, f=POs[n].param_value, P=1.0), tspan=(0.0, POs[n].period))
-		sol = solve(prob, Tsit5())
-		APD, DI, APA = decompose_solution(sol)
 		
-		# estimate Floquet exponents
-		function G(x)
+		function G(x; retsol=false)
 			tmp_prob = remake(prob, u0=x, p=(C=1.0, A=2.3, f=POs[n].param_value, P=1.0), tspan=(0.0, POs[n].period))
 			sol = solve(tmp_prob, Tsit5())
-			A = convert(Array, sol)
-			return A[:,end]
+			if !retsol
+				A = convert(Array, sol)
+				return A[:,end]
+			else	
+				return sol
+			end
+			
 		end
+		
+		sol = G(POs[n].state[:,1]; retsol=true)
+		
+		BCL = BCLfromp((C=1.0, A=2.3, f=POs[n].param_value, P=1.0))
+		APD, DI, APA = decompose_solution(sol)
+		
 		J = ForwardDiff.jacobian(G,POs[n].state[:,1])
 		FML = eigvals(J)
 		
-		print("eigerr = $(abs(FML[argmin(abs.(FML.-(1.0+0.0im)))]-1.0+0.0im))\n")
-		
-		BCL = BCLfromp((C=1.0, A=2.3, f=POs[n].param_value, P=1.0))
-		
+		if abs(FML[argmin(abs.(FML.-(1.0+0.0im)))]-1.0+0.0im) > 1e-6
+			print("eigerr = $(abs(FML[argmin(abs.(FML.-(1.0+0.0im)))]-1.0+0.0im))\n");
+		end
+
 		push!(BCLs, [BCL])
 		push!(APDs, APD)
 		push!(APAs, APA)
@@ -254,21 +263,37 @@ function makeplots(POs, BCLs, APDs, APAs, DIs, FMLs)
 		
 		# stability mapping
 		if maximum(abs.(FML)) > 1.00
-			ms = 3.0
+			ms = 1.0
 		else
-			ms = 5.0
+			ms = 3.0
 		end
 		
 		return (col, ms)
 	end
-
-	# plot the limit cycles
-	fig = plt.figure(figsize=(4,3))
-	for n=1:length(POs)
-		plt.plot(POs[n].state[3,:], POs[n].state[1,:], linewidth=1.0, color=plt.cm.viridis((POs[n].period-40.0)/(1000.0-40.0)))
+	
+	# plot the POs
+	fig,axs = plt.subplots(3,3,figsize=(8,7), sharey=true)
+	sm = plt.cm.ScalarMappable(cmap=plt.cm.viridis, norm=plt.Normalize(vmin=40.0, vmax=1000.0))
+	# fake up the array of the scalar mappable. Urgh...
+	sm._A = []
+	varnames = ["[Ca]","x","m","h","j","d","f","y"]
+	for m=2:9
+		for n=1:length(POs)
+			axs[m-1].plot(POs[n].state[m,:], POs[n].state[1,:], linewidth=1.0, color=plt.cm.viridis((POs[n].period-40.0)/(1000.0-40.0)))
+		end
+		axs[m-1].set_xlabel("\$"*varnames[m-1]*"(t) \$")
+		axs[m-1].set_ylabel("\$ V(t) \$")
+		clb = plt.colorbar(sm, ax=axs[m-1])
+		clb.ax.set_title("\$ T \$")
 	end
-	plt.xlabel("\$ x(t) \$")
-	plt.ylabel("\$ V(t) \$")
+	for n=1:length(POs)
+		axs[9].plot(collect(0:size(POs[n].state,2)-1).*(1.0/size(POs[n].state,2)), POs[n].state[1,:], linewidth=1.0, color=plt.cm.viridis((POs[n].period-40.0)/(1000.0-40.0)))
+	end
+	axs[9].set_xlabel("\$ t/T \$")
+	axs[9].set_ylabel("\$ V(t) \$")
+	clb = plt.colorbar(sm, ax=axs[9])
+	clb.ax.set_title("\$ T \$")
+	tight_layout()
 	plt.savefig("./figures/bifurcations_BR_cont_POs_$(p[:A])_$(p[:P]).pdf")
 	plt.close()
 

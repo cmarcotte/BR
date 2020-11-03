@@ -199,5 +199,38 @@ for BCL in BCL_range[2:end]
 	@save "./data/POs.jld2" POs
 end
 
+global m=1
 
+while maximum(abs.(POs[m][:Λ])) < 1.05
+	global m = m + 1
+end
 
+u0 = POs[m][:u]
+p = POs[m][:p]
+tspan=(0.0,20000.0)
+sol = runprob(prob,u0,p,tspan)
+
+# get initial PO guess
+u0 = sol(18800.0)
+
+# BCL range
+BCL_range = (1000.0/p[3]):-5.0:40.0
+BCL = 2.0*BCL_range[1]
+
+# try to resolve the PO for the 2-cycle
+resolve_PO(u0, p, (0.0, BCL), POs)
+plotPOs(POs)
+
+for BCL in BCL_range[2:end]
+
+        print("BCL=$BCL:\n")
+
+        local f = 1000.0/BCL; if p[4] > 1 && mod(p[4],2) == 0; f = f/2.0; end; p[3] = f;
+        local tspan = (0.0, 2.0*BCL)
+        print("\tp=$p\ttspan=$tspan\n")
+        resolve_PO(u0, p, tspan, POs)
+        plotPOs(POs)
+
+        # save data
+        @save "./data/POs.jld2" POs
+end

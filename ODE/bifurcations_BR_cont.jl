@@ -263,9 +263,9 @@ function makeplots(POs, BCLs, APDs, APAs, DIs, FMLs)
 		
 		# stability mapping
 		if maximum(abs.(FML)) > 1.00
-			ms = 1.0
-		else
 			ms = 3.0
+		else
+			ms = 5.0
 		end
 		
 		return (col, ms)

@@ -178,8 +178,8 @@ ode = remake(prob, p=p, u0=u0, tspan=(0.0, BCL))
 
 num_mesh = 50
 degree = 5
-t_domain = (1.0, 25.0) # f ∈ 1000/(1000, 40)
-LCprob = LimitCycleProblem( ode, (@lens _.f), t_domain, num_mesh, degree; x0=u0, l0=BCL, de_args=[Tsit5()])
+f_domain = (1.0, 25.0) # f ∈ 1000/(1000, 40)
+LCprob = LimitCycleProblem( ode, (@lens _.f), f_domain, num_mesh, degree; x0=u0, l0=BCL, de_args=[Tsit5()])
 
 solver = init(
     LCprob;
@@ -202,9 +202,9 @@ DIs  = []
 FMLs = []
 
 # build data
-function build_data(POs, BCLs, APDs, APAs, DIs, FMLs, prob=prob, lowind=1)
+function build_data(POs, BCLs, APDs, APAs, DIs, FMLs, prob=prob, lowind=0)
 
-	for n=lowind:length(POs)
+	for n=lowind+1:length(POs)
 
 		
 		function G(x; retsol=false)
@@ -341,6 +341,21 @@ function makeplots(POs, BCLs, APDs, APAs, DIs, FMLs)
 	tight_layout()
 	plt.savefig("./figures/bifurcations_BR_cont_BCL_APD_APA_$(p[:A])_$(p[:P]).pdf")
 	plt.close()
+	
+	fig,axs = plt.subplots(2,1,figsize=(4,3), sharex=true)
+	axs[2].plot([0.0, 1000.0], [0.0, 0.0], color="red", label="")
+	for n=1:length(POs)
+		c, ms = mapping(POs[n], BCLs[n], APDs[n], APAs[n], DIs[n], FMLs[n])
+		axs[1].plot(BCLs[n][1]*ones(size(APDs[n])), APDs[n], ls="none", marker=".", markersize=ms, color=c, label="")
+		axs[2].plot(BCLs[n][1]*ones(size(FMLs[n])), log.(Complex.(FMLs[n])), ls="none", marker=".", markersize=ms, color=c, label="")
+	end
+	axs[2].set_xlabel("BCL [ms]")
+	axs[1].set_ylabel("APD [ms]")
+	axs[2].set_ylabel("\$ \\lambda T \$ [1/ms]")
+	#axs[2].set_xlim([0.0,400.0])
+	tight_layout()
+	plt.savefig("./figures/bifurcations_BR_cont_BCL_APD_FML_$(p[:A])_$(p[:P]).pdf")
+	close()
 
 	return nothing
 end
@@ -382,8 +397,8 @@ ode = remake(prob, p=p, u0=u0, tspan=(0.0, 2*BCL))
 
 num_mesh = 50
 degree = 5
-t_domain = (1.0, 25.0) # f ∈ 1000/(1000, 40)
-LCprob = LimitCycleProblem( ode, (@lens _.f), t_domain, num_mesh, degree; x0=u0, l0=2.0*BCL, de_args=[Tsit5()])
+f_domain = (1.0, 25.0) # f ∈ 1000/(1000, 40)
+LCprob = LimitCycleProblem( ode, (@lens _.f), f_domain, num_mesh, degree; x0=u0, l0=2.0*BCL, de_args=[Tsit5()])
 
 solver = init(
     LCprob;

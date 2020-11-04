@@ -182,7 +182,7 @@ solver = init(
     start_from_nearest_root = true,
     max_branches = 3,
     bidirectional_first_sweep = false,
-    max_samples = 1000,
+    max_samples = 500,
     verbose=true,
 )
 
@@ -412,7 +412,7 @@ solver = init(
     start_from_nearest_root = true,
     max_branches = 5,
     bidirectional_first_sweep = true,
-    max_samples = 500,
+    max_samples = 250,
     verbose=true,
     
 )
@@ -476,7 +476,7 @@ solver = init(
     start_from_nearest_root = true,
     max_branches = 5,
     bidirectional_first_sweep = true,
-    max_samples = 250,
+    max_samples = 125,
     verbose=true,
     
 )

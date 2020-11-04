@@ -1,14 +1,10 @@
 using Bifurcations
 using Bifurcations: LimitCycleProblem
-
 using PyPlot
 using OrdinaryDiffEq: Tsit5, ODEProblem, remake
 using Setfield: @lens
-
 using JLD2, FileIO
-
 using ForwardDiff, LinearAlgebra
-
 using DynamicalSystems
 
 plt.style.use("seaborn-paper")
@@ -184,14 +180,18 @@ LCprob = LimitCycleProblem( ode, (@lens _.f), f_domain, num_mesh, degree; x0=u0,
 solver = init(
     LCprob;
     start_from_nearest_root = true,
-    max_branches = 0,
+    max_branches = 3,
     bidirectional_first_sweep = false,
     max_samples = 1000,
     verbose=true,
 )
 
 # this takes a while
-solve!(solver)		
+#solve!(solver)
+solving!(solver) do point
+	print("\npoint.i_sweep=$(point.i_sweep), point.i_point=$(point.i_point)");
+	print("\n\tT = $(point.u[end-1]),\tf=$(point.u[end]),\tBCL=$(1000.0/point.u[end])\n")
+end	
 
 # pull the POs out of it
 POs = Bifurcations.Codim1LimitCycle.limitcycles(solver)
@@ -381,7 +381,7 @@ makeplots(POs, BCLs, APDs, APAs, DIs, FMLs);
 u0 = [ -84.0, 10^-7, 0.01, 0.01, 0.99, 0.99, 0.01, 0.99, 0.0, 1.0 ]
 
 # parameters
-BCL = 400.0
+BCL = 1000.0/3.125
 p = (C=1.0, A=2.3, f=1000.0/BCL, P=1.0)
 
 # define V90 threshold
@@ -410,7 +410,7 @@ LCprob = LimitCycleProblem( ode, (@lens _.f), f_domain, num_mesh, degree; x0=u0,
 solver = init(
     LCprob;
     start_from_nearest_root = true,
-    max_branches = 0,
+    max_branches = 3,
     bidirectional_first_sweep = true,
     max_samples = 1000,
     verbose=true,
@@ -418,12 +418,80 @@ solver = init(
 )
 
 # this takes a while
-solve!(solver)
+#solve!(solver)
+solving!(solver) do point
+	print("\npoint.i_sweep=$(point.i_sweep), point.i_point=$(point.i_point)");
+	print("\n\tT = $(point.u[end-1]),\tf=$(point.u[end]),\tBCL=$(1000.0/point.u[end])\n")
+end	
 
 # pull the POs out of it
 PO2s = Bifurcations.Codim1LimitCycle.limitcycles(solver)
 
-# append to POs, BCLs, APDs, APAs, DIs
+# append to POs
+for n in 1:length(PO2s)
+	push!(POs, PO2s[n])
+end
+
+# build and save data structure
+build_data(POs, BCLs, APDs, APAs, DIs, FMLs; lowind=length(BCLs));
+
+# make some plots
+makeplots(POs, BCLs, APDs, APAs, DIs, FMLs);
+
+#=
+	4:4 response
+=#
+# initial state
+u0 = [ -84.0, 10^-7, 0.01, 0.01, 0.99, 0.99, 0.01, 0.99, 0.0, 1.0 ]
+
+# parameters
+BCL = 1000.0/4.95
+p = (C=1.0, A=2.3, f=1000.0/BCL, P=1.0)
+
+# define V90 threshold
+V90 = -75.0
+
+# new tspan
+tspan = (0.0, 20000.0)
+
+# get prob from BR 
+prob = ODEProblem(BR!, u0, tspan, p)
+
+# remake prob with new u0, p, and tspan and solve
+sol = solve(prob, Tsit5())
+
+# get initial PO guess
+t0 = 18400.0
+u0 = sol(t0)
+
+ode = remake(prob, p=p, u0=u0, tspan=(0.0, 4*BCL))
+
+num_mesh = 50
+degree = 5
+f_domain = (1.0, 25.0) # f ∈ 1000/(1000, 40)
+LCprob = LimitCycleProblem( ode, (@lens _.f), f_domain, num_mesh, degree; x0=u0, l0=4.0*BCL, de_args=[Tsit5()])
+
+solver = init(
+    LCprob;
+    start_from_nearest_root = true,
+    max_branches = 3,
+    bidirectional_first_sweep = true,
+    max_samples = 1000,
+    verbose=true,
+    
+)
+
+# this takes a while
+#solve!(solver)
+solving!(solver) do point
+	print("\npoint.i_sweep=$(point.i_sweep), point.i_point=$(point.i_point)");
+	print("\n\tT = $(point.u[end-1]),\tf=$(point.u[end]),\tBCL=$(1000.0/point.u[end])\n")
+end	
+
+# pull the POs out of it
+PO2s = Bifurcations.Codim1LimitCycle.limitcycles(solver)
+
+# append to POs
 for n in 1:length(PO2s)
 	push!(POs, PO2s[n])
 end
@@ -437,4 +505,5 @@ makeplots(POs, BCLs, APDs, APAs, DIs, FMLs);
 #=
 	3:3 response
 =#
+
 

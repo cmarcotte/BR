@@ -1,7 +1,7 @@
 using Bifurcations
 using Bifurcations: LimitCycleProblem
 using PyPlot
-using OrdinaryDiffEq: Tsit5, ODEProblem, remake
+using OrdinaryDiffEq: Tsit5, Rodas5, ODEProblem, remake
 using Setfield: @lens
 using JLD2, FileIO
 using ForwardDiff, LinearAlgebra
@@ -164,7 +164,7 @@ tspan = (0.0, 20000.0)
 prob = ODEProblem(BR!, u0, tspan, p)
 
 # remake prob with new u0, p, and tspan and solve
-sol = solve(prob, Tsit5())
+sol = solve(prob, Rodas5())
 
 # get initial PO guess
 t0 = 18800.0
@@ -175,7 +175,7 @@ ode = remake(prob, p=p, u0=u0, tspan=(0.0, BCL))
 num_mesh = 25
 degree = 5
 f_domain = (1.0, 25.0) # f ∈ 1000/(1000, 40)
-LCprob = LimitCycleProblem( ode, (@lens _.f), f_domain, num_mesh, degree; x0=u0, l0=BCL, de_args=[Tsit5()])
+LCprob = LimitCycleProblem( ode, (@lens _.f), f_domain, num_mesh, degree; x0=u0, l0=BCL, de_args=[Rodas5()])
 
 solver = init(
     LCprob;
@@ -209,7 +209,7 @@ function build_data(POs, BCLs, APDs, APAs, DIs, FMLs; prob=prob, lowind=0)
 		
 		function G(x; retsol=false)
 			tmp_prob = remake(prob, u0=x, p=(C=1.0, A=2.3, f=POs[n].param_value, P=1.0), tspan=(0.0, POs[n].period))
-			sol = solve(tmp_prob, Tsit5())
+			sol = solve(tmp_prob, Rodas5())
 			if !retsol
 				A = convert(Array, sol)
 				return A[:,end]
@@ -394,7 +394,7 @@ tspan = (0.0, 20000.0)
 prob = ODEProblem(BR!, u0, tspan, p)
 
 # remake prob with new u0, p, and tspan and solve
-sol = solve(prob, Tsit5())
+sol = solve(prob, Rodas5())
 
 # get initial PO guess
 t0 = 18500.0
@@ -405,14 +405,14 @@ ode = remake(prob, p=p, u0=u0, tspan=(0.0, 2*BCL))
 num_mesh = 50
 degree = 5
 f_domain = (1.0, 25.0) # f ∈ 1000/(1000, 40)
-LCprob = LimitCycleProblem( ode, (@lens _.f), f_domain, num_mesh, degree; x0=u0, l0=2.0*BCL, de_args=[Tsit5()])
+LCprob = LimitCycleProblem( ode, (@lens _.f), f_domain, num_mesh, degree; x0=u0, l0=2.0*BCL, de_args=[Rodas5()])
 
 solver = init(
     LCprob;
     start_from_nearest_root = true,
     max_branches = 5,
     bidirectional_first_sweep = true,
-    max_samples = 1000,
+    max_samples = 500,
     verbose=true,
     
 )
@@ -458,7 +458,7 @@ tspan = (0.0, 20000.0)
 prob = ODEProblem(BR!, u0, tspan, p)
 
 # remake prob with new u0, p, and tspan and solve
-sol = solve(prob, Tsit5())
+sol = solve(prob, Rodas5())
 
 # get initial PO guess
 t0 = 18400.0
@@ -469,14 +469,14 @@ ode = remake(prob, p=p, u0=u0, tspan=(0.0, 4*BCL))
 num_mesh = 100
 degree = 5
 f_domain = (1.0, 25.0) # f ∈ 1000/(1000, 40)
-LCprob = LimitCycleProblem( ode, (@lens _.f), f_domain, num_mesh, degree; x0=u0, l0=4.0*BCL, de_args=[Tsit5()])
+LCprob = LimitCycleProblem( ode, (@lens _.f), f_domain, num_mesh, degree; x0=u0, l0=4.0*BCL, de_args=[Rodas5()])
 
 solver = init(
     LCprob;
     start_from_nearest_root = true,
     max_branches = 5,
     bidirectional_first_sweep = true,
-    max_samples = 1000,
+    max_samples = 250,
     verbose=true,
     
 )

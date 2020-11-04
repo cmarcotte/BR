@@ -172,7 +172,7 @@ u0 = sol(t0)
 
 ode = remake(prob, p=p, u0=u0, tspan=(0.0, BCL))
 
-num_mesh = 50
+num_mesh = 25
 degree = 5
 f_domain = (1.0, 25.0) # f ∈ 1000/(1000, 40)
 LCprob = LimitCycleProblem( ode, (@lens _.f), f_domain, num_mesh, degree; x0=u0, l0=BCL, de_args=[Tsit5()])
@@ -218,13 +218,13 @@ function build_data(POs, BCLs, APDs, APAs, DIs, FMLs; prob=prob, lowind=0)
 			end
 			
 		end
-		
-		sol = G(POs[n].state[:,1]; retsol=true)
+		q = argmin(POs[n].state[1,:])
+		sol = G(POs[n].state[:,q]; retsol=true)
 		
 		BCL = BCLfromp((C=1.0, A=2.3, f=POs[n].param_value, P=1.0))
 		APD, DI, APA = decompose_solution(sol)
 		
-		J = ForwardDiff.jacobian(G,POs[n].state[:,1])
+		J = ForwardDiff.jacobian(G,POs[n].state[:,q])
 		FML = eigvals(J)
 		
 		if abs(FML[argmin(abs.(FML.-(1.0+0.0im)))]-1.0+0.0im) > 1e-6
@@ -410,7 +410,7 @@ LCprob = LimitCycleProblem( ode, (@lens _.f), f_domain, num_mesh, degree; x0=u0,
 solver = init(
     LCprob;
     start_from_nearest_root = true,
-    max_branches = 3,
+    max_branches = 5,
     bidirectional_first_sweep = true,
     max_samples = 1000,
     verbose=true,
@@ -466,7 +466,7 @@ u0 = sol(t0)
 
 ode = remake(prob, p=p, u0=u0, tspan=(0.0, 4*BCL))
 
-num_mesh = 50
+num_mesh = 100
 degree = 5
 f_domain = (1.0, 25.0) # f ∈ 1000/(1000, 40)
 LCprob = LimitCycleProblem( ode, (@lens _.f), f_domain, num_mesh, degree; x0=u0, l0=4.0*BCL, de_args=[Tsit5()])
@@ -474,7 +474,7 @@ LCprob = LimitCycleProblem( ode, (@lens _.f), f_domain, num_mesh, degree; x0=u0,
 solver = init(
     LCprob;
     start_from_nearest_root = true,
-    max_branches = 3,
+    max_branches = 5,
     bidirectional_first_sweep = true,
     max_samples = 1000,
     verbose=true,

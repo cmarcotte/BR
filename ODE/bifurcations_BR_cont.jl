@@ -402,7 +402,7 @@ u0 = sol(t0)
 
 ode = remake(prob, p=p, u0=u0, tspan=(0.0, 2*BCL))
 
-num_mesh = 50
+num_mesh = 25
 degree = 5
 f_domain = (1.0, 25.0) # f ∈ 1000/(1000, 40)
 LCprob = LimitCycleProblem( ode, (@lens _.f), f_domain, num_mesh, degree; x0=u0, l0=2.0*BCL, de_args=[Rodas5()])
@@ -466,7 +466,7 @@ u0 = sol(t0)
 
 ode = remake(prob, p=p, u0=u0, tspan=(0.0, 4*BCL))
 
-num_mesh = 100
+num_mesh = 25
 degree = 5
 f_domain = (1.0, 25.0) # f ∈ 1000/(1000, 40)
 LCprob = LimitCycleProblem( ode, (@lens _.f), f_domain, num_mesh, degree; x0=u0, l0=4.0*BCL, de_args=[Rodas5()])

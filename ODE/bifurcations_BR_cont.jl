@@ -397,7 +397,7 @@ prob = ODEProblem(BR!, u0, tspan, p)
 sol = solve(prob, Tsit5())
 
 # get initial PO guess
-t0 = 18400.0
+t0 = 18500.0
 u0 = sol(t0)
 
 ode = remake(prob, p=p, u0=u0, tspan=(0.0, 2*BCL))

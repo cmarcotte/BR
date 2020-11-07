@@ -176,9 +176,13 @@ V90 = -75.0
 function build_data(LCs, POs; prob=prob)
 
 	for n=1:length(LCs)
-
-		q = argmin(LCs[n].state[1,:])
-
+		
+		print("Analyzing PO $(n) of $(length(LCs))...\n");
+		if LCs[n].state[1,1] > -75.0
+			q=argmin(abs.(LCs[n].state[1,:] .+ 80.0)) # closest state sample to -80.0 (i.e., below V90)
+		else
+			q=1
+		end
 		prob = remake(prob, u0=LCs[n].state[:,q], p=(C=1.0, A=2.3, f=LCs[n].param_value, P=1.0), tspan=(0.0, LCs[n].period))
 		
 		function G(x; retsol=false)
@@ -193,11 +197,16 @@ function build_data(LCs, POs; prob=prob)
 			
 		end
 		
+		print("\tComputing shifted sol.\n")
 		sol = G(LCs[n].state[:,q]; retsol=true)
 		
+		print("\t|u(T)-u(0)| = $(norm(sol(0.0).-sol(LCs[n].period)))\n");
+		
+		print("\tDecomposing shifted sol.\n")
 		BCL = BCLfromp((C=1.0, A=2.3, f=LCs[n].param_value, P=1.0))
 		APD, DI, APA = decompose_solution(sol)
 		
+		print("\tComputing shifted sol Jacobian.\n");
 		J = ForwardDiff.jacobian(G,LCs[n].state[:,q])
 		FML = eigvals(J)
 		
@@ -206,6 +215,7 @@ function build_data(LCs, POs; prob=prob)
 			print("eigerr = $(abs(FML[argmin(abs.(FML.-(1.0+0.0im)))]-1.0+0.0im))\n");
 		end
 
+		print("\tAccumulating PO.\n")
 		po = PO(prob, APD, APA, DI, BCL, J)
 		push!(POs, po)
 		
@@ -385,7 +395,7 @@ if ARGS[1] == "1"
 	    start_from_nearest_root = true,
 	    max_branches = 3,
 	    bidirectional_first_sweep = true,
-	    max_samples = 300,
+	    max_samples = 500,
 	    rtol=rtol, atol=atol
 	)
 
@@ -399,8 +409,8 @@ if ARGS[1] == "1"
 	# pull the POs out of it
 	LCs = Bifurcations.Codim1LimitCycle.limitcycles(solver)
 
-	# build and save data structure
-	build_data(LCs, POs);
+	# tmp save
+	save("./data/bifurcations_BR_cont_2_LCs_$(ARGS[1]).jld2", Dict("LCs"=>LCs));
 
 elseif ARGS[1] == "2"
 	#=
@@ -441,9 +451,9 @@ elseif ARGS[1] == "2"
 	solver = init(
 	    LCprob;
 	    start_from_nearest_root = true,
-	    max_branches = 5,
+	    max_branches = 3,
 	    bidirectional_first_sweep = true,
-	    max_samples = 300,
+	    max_samples = 500,
 	    rtol=rtol, atol=atol
 	)
 
@@ -457,12 +467,8 @@ elseif ARGS[1] == "2"
 	# pull the POs out of it
 	LCs = Bifurcations.Codim1LimitCycle.limitcycles(solver)
 
-	# load existing POs
-	POs = load("./data/bifurcations_POs_results.jld2", "POs")
-	
-	# build and save data structure
-	build_data(LCs, POs);
-
+	# tmp save
+	save("./data/bifurcations_BR_cont_2_LCs_$(ARGS[1]).jld2", Dict("LCs"=>LCs));
 
 elseif ARGS[1] == "3"
 	#=
@@ -503,9 +509,9 @@ elseif ARGS[1] == "3"
 	solver = init(
 	    LCprob;
 	    start_from_nearest_root = true,
-	    max_branches = 5,
+	    max_branches = 3,
 	    bidirectional_first_sweep = true,
-	    max_samples = 300,
+	    max_samples = 375,
 	    rtol=rtol, atol=atol
 	    
 	)
@@ -520,11 +526,8 @@ elseif ARGS[1] == "3"
 	# pull the POs out of it
 	LCs = Bifurcations.Codim1LimitCycle.limitcycles(solver)
 
-	# load existing POs
-	POs = load("./data/bifurcations_POs_results.jld2", "POs")
-
-	# build and save data structure
-	build_data(LCs, POs);
+	# tmp save
+	save("./data/bifurcations_BR_cont_2_LCs_$(ARGS[1]).jld2", Dict("LCs"=>LCs));
 
 elseif ARGS[1] == "4"
 	#=
@@ -564,9 +567,9 @@ elseif ARGS[1] == "4"
 	solver = init(
 	    LCprob;
 	    start_from_nearest_root = true,
-	    max_branches = 5,
+	    max_branches = 3,
 	    bidirectional_first_sweep = true,
-	    max_samples = 300,
+	    max_samples = 500,
 	    rtol=rtol, atol=atol
 	    
 	)
@@ -581,11 +584,8 @@ elseif ARGS[1] == "4"
 	# pull the POs out of it
 	LCs = Bifurcations.Codim1LimitCycle.limitcycles(solver)
 
-	# load existing POs
-	POs = load("./data/bifurcations_POs_results.jld2", "POs")
-	
-	# build and save data structure
-	build_data(LCs, POs);
+	# tmp save
+	save("./data/bifurcations_BR_cont_2_LCs_$(ARGS[1]).jld2", Dict("LCs"=>LCs));
 
 elseif ARGS[1]=="5"
 	#=
@@ -631,9 +631,9 @@ elseif ARGS[1]=="5"
 	solver = init(
 	    LCprob;
 	    start_from_nearest_root = true,
-	    max_branches = 5,
+	    max_branches = 3,
 	    bidirectional_first_sweep = true,
-	    max_samples = 125,
+	    max_samples = 500,
 	    rtol=rtol, atol=atol
 	)
 
@@ -647,14 +647,19 @@ elseif ARGS[1]=="5"
 	# pull the POs out of it
 	LCs = Bifurcations.Codim1LimitCycle.limitcycles(solver)
 
-	# load existing POs
-	POs = load("./data/bifurcations_POs_results.jld2", "POs")
-
-	# build and save data structure
-	build_data(LCs, POs);
+	# tmp save
+	save("./data/bifurcations_BR_cont_2_LCs_$(ARGS[1]).jld2", Dict("LCs"=>LCs));
 	
 elseif ARGS[1] == "plot"
 
+	POs = PO[]
+	
+	for n=[1 2 3]# 4]
+		print("Loading './data/bifurcations_BR_cont_2_LCs_$(n).jld2'.\n");
+		local LCs = load("./data/bifurcations_BR_cont_2_LCs_$(n).jld2", "LCs")
+		build_data(LCs, POs);
+	end
+	
 	# make some plots
 	makeplots(POs);
 	

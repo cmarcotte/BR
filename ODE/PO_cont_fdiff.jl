@@ -41,13 +41,13 @@ end
 
 BCL = BCLfromp(p)
 
-function resolvePO(x; prob=prob, p=p, BCL=BCL)
+function resolvePO(x; prob=prob, p=p, BCL=BCL, showtrace=true)
 
 	function G(x)
 		r = similar(x)
 		M = Int(length(x)/10)
 		for m=1:M	
-			tmp_prob = remake(prob, u0=x[(m-1)*10 .+ (1:10)], p=p, tspan=(0.0, BCL))
+			tmp_prob = remake(prob, u0=x[(m-1)*10 .+ (1:10)], p=p, tspan=(0.0, BCLfromp(p)))
 			sol = solve(tmp_prob, Tsit5(), saveat=BCL, abstol=atol, reltol=rtol, maxiters=Int(1e6))
 			r[(m-1)*10 .+ (1:10)] .= sol[:,end]
 		end
@@ -58,7 +58,7 @@ function resolvePO(x; prob=prob, p=p, BCL=BCL)
 		F.= G(x)
 	end
 
-	res = nlsolve(G!, x; ftol=1e-12, xtol=1e-12*norm(x,Inf), autodiff=:forward)
+	res = nlsolve(G!, x; ftol=1e-8, xtol=rtol*norm(x,Inf), autodiff=:forward, show_trace=showtrace)
 	
 	return res
 	
@@ -171,7 +171,8 @@ function plotPOs(POs)
 		end
 		
 		# stability mapping
-		if maximum(abs.(eigvals(PO.J))) > 1.00 + atol
+		Λ = eigvals(PO.J)
+		if maximum(abs.(Λ)) > 1.00 + atol
 			ms = 3.0
 		else
 			ms = 5.0
@@ -196,54 +197,96 @@ function plotPOs(POs)
 	plt.close()
 	
 end
+
 #=
 	1:1
-=#
-BCL=1000.00
-prob = remake(prob, u0=u0, p=[1.0,2.3,1000.0/BCL,1.0], tspan=(0.0, 20000.0))
+=#	
+f=1.25
+prob = remake(prob, u0=u0, p=[1.0,2.3,f,1.0], tspan=(0.0, 20000.0))
 sol = solve(prob, Tsit5(), saveat=BCL)
 x = sol[:,end]			# 1-cycle
-
-# continuation
-dBCL= 0.0
-while BCL >= 40.0
-	tmp_BCL = BCL - dBCL
-	success = accumulatePOs!(POs, x; prob=prob, p=[1.0,2.3,1000.0/tmp_BCL,1.0], BCL=tmp_BCL, V90=V90)
+prob = remake(prob, u0=x, p=[1.0,2.3,f,1.0], tspan=(0.0,BCLfromp([1.0,2.3,f,1.0])))
+df= 0.0
+while f <= 25.0
+	success = accumulatePOs!(POs, x; prob=prob, p=[1.0,2.3,f+df,1.0], BCL=BCLfromp([1.0,2.3,f+df,1.0]), V90=V90)
+	print("($(f), $(df), $(success))\n");
 	if success 
-		BCL = tmp_BCL
-		dBCL = min(max(2*dBCL, 1.0), 5.0)
+		global f = max(min(f+df,25.0),1.0)
+		global df = min(max(1.10*df,0.02), 1.0)
 	else
-		BCL = BCL
-		dBCL = max(min(0.75*dBCL, 1.0), 0.1)
+		global df = max(min(0.95*df,0.02), 1.0)
 	end
-	sol = solve(POs[end].prob, Tsit5(), abstol=atol, reltol=rtol, maxiters=Int(1e6))
-	x = sol[:,1][:]
-	
+	local sol = solve(POs[end].prob, Tsit5(), abstol=atol, reltol=rtol, maxiters=Int(1e6))
+	global x = sol[:,1][:]
+
+	plotPOs(POs);
+end
+f=1.25
+prob = remake(prob, u0=u0, p=[1.0,2.3,f,1.0], tspan=(0.0, 20000.0))
+sol = solve(prob, Tsit5(), saveat=BCL)
+x = sol[:,end]			# 1-cycle		# 1-cycle
+prob = remake(prob, u0=x, p=[1.0,2.3,f,1.0], tspan=(0.0,BCLfromp([1.0,2.3,f,1.0])))
+df= 0.00
+while f >= 1.0
+	success = accumulatePOs!(POs, x; prob=prob, p=[1.0,2.3,f-df,1.0], BCL=BCLfromp([1.0,2.3,f-df,1.0]), V90=V90)
+	print("($(f), $(df), $(success))\n");
+	if success 
+		global f = max(min(f+df,25.0),1.0)
+		global df = min(max(1.10*df,0.02), 1.0)
+	else
+		global df = max(min(0.95*df,0.02), 1.0)
+	end
+	local sol = solve(POs[end].prob, Tsit5(), abstol=atol, reltol=rtol, maxiters=Int(1e6))
+	global x = sol[:,1][:]
+
 	plotPOs(POs);
 end
 
 #=
 	2:2
 =#
-f=1.67
+f=3.125
 prob = remake(prob, u0=u0, p=[1.0,2.3,f,1.0], tspan=(0.0, 20000.0))
 sol = solve(prob, Tsit5(), saveat=BCLfromp([1.0,2.3,f,1.0]))
 x = sol[:,(end-1):end][:]	# 2-cycle
-
+prob = remake(prob, u0=x, p=[1.0,2.3,f,1.0], tspan=(0.0,2BCLfromp([1.0,2.3,f,1.0])))
+df=0.0
 # continuation
-df= 0.0
 while f <= 25.0
 	success = accumulatePOs!(POs, x; prob=prob, p=[1.0,2.3,f+df,1.0], BCL=BCLfromp([1.0,2.3,f+df,1.0]), V90=V90)
+	print("($(f), $(df), $(success))\n");
 	if success 
-		f = f + df
-		df = min(1.1*df, 1.0)
+		global f = max(min(f+df,25.0),1.0)
+		global df = min(max(1.10*df,0.02), 1.0)
 	else
-		df = max(0.95*df, 1.0)
+		global df = max(min(0.95*df,0.02), 1.0)
 	end
-	sol = solve(POs[end].prob, Tsit5(), abstol=atol, reltol=rtol, maxiters=Int(1e6))
-	x = sol[:,1:2][:]
-end
+	local sol = solve(POs[end].prob, Tsit5(), abstol=atol, reltol=rtol, maxiters=Int(1e6))
+	global x = sol[:,1:2][:]
 
+	plotPOs(POs);
+end
+f=3.125
+prob = remake(prob, u0=u0, p=[1.0,2.3,f,1.0], tspan=(0.0, 20000.0))
+sol = solve(prob, Tsit5(), saveat=BCLfromp([1.0,2.3,f,1.0]))
+x = sol[:,(end-1):end][:]	# 2-cycle
+prob = remake(prob, u0=x, p=[1.0,2.3,f,1.0], tspan=(0.0,2BCLfromp([1.0,2.3,f,1.0])))
+df=0.0
+# continuation
+while f <= 25.0
+	success = accumulatePOs!(POs, x; prob=prob, p=[1.0,2.3,f-df,1.0], BCL=BCLfromp([1.0,2.3,f-df,1.0]), V90=V90)
+	print("($(f), $(df), $(success))\n");
+	if success 
+		global f = max(min(f-df,25.0),1.0)
+		global df = min(max(1.10*df,0.02), 1.0)
+	else
+		global df = max(min(0.95*df,0.02), 1.0)
+	end
+	local sol = solve(POs[end].prob, Tsit5(), abstol=atol, reltol=rtol, maxiters=Int(1e6))
+	global x = sol[:,1:2][:]
+
+	plotPOs(POs);
+end
 #=
 	4:4
 =#
@@ -254,15 +297,17 @@ x = sol[:,(end-3):end][:]	# 4-cycle
 
 # continuation
 df= 0.0
-while BCL >= 40.0
-	tmp_BCL = BCL - dBCL
-	success = accumulatePOs!(POs, x; prob=prob, p=[1.0,2.3,1000.0/tmp_BCL,1.0], BCL=tmp_BCL, V90=V90)
+while f <= 25.0
+	success = accumulatePOs!(POs, x; prob=prob, p=[1.0,2.3,f+df,1.0], BCL=BCLfromp([1.0,2.3,f+df,1.0]), V90=V90)
+	print("($(f), $(df), $(success))\n");
 	if success 
-		BCL = tmp_BCL
-		dBCL = max(min(2*BCL, 5.0), 0.5)
+		global f = f + df
+		global df = min(max(1.10*df,0.02), 1.0)
 	else
-		dBCL = min(max(0.75*dBCL, 1.0), 1.0)
+		global df = max(min(0.95*df,0.02), 1.0)
 	end
-	sol = solve(POs[end].prob, Tsit5(), abstol=atol, reltol=rtol, maxiters=Int(1e6))
-	x = sol[:,1:4][:]
+	local sol = solve(POs[end].prob, Tsit5(), abstol=atol, reltol=rtol, maxiters=Int(1e6))
+	global x = sol[:,1:4][:]
+	
+	plotPOs(POs);
 end

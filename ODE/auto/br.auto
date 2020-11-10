@@ -1,0 +1,26 @@
+#============================
+# BR PO continuation from DNS
+#============================
+
+pgm = 'br'
+
+for (m,DAT) in enumerate(['BR_sol_2.3_1.05_1.0','BR_sol_2.3_3.12_1.0','BR_sol_2.3_4.95_1.0','BR_sol_2.3_5.25_1.0', 'BR_sol_2.3_6.25_1.0']):
+
+	print pgm, ": resolving a solution from {0}".format(DAT)
+	r0=run(e=pgm, c=pgm, dat=DAT, IPS=2, ICP=[4,11], PAR={1:float(DAT[7:10]), 2:float(DAT[11:15]), 3:float(DAT[16:19])})
+
+	print pgm, ": run {0} : a solution branch starting from {1}, varying forcing frequency".format(m+1,DAT)
+	rr =run(r0("EP2"), ICP=[2,11,1], UZSTOP={2:[1.0,25.0]}, NMX=9999, NPR=10, SP=['LP2'])
+	rr+=run(r0("EP2"), ICP=[2,11,1], UZSTOP={2:[1.0,25.0]}, NMX=9999, NPR=10, SP=['LP2'], DS='-')
+	rr=rl(mb( rr ))
+	save(rr,"r{0}".format(m+1))
+"""
+for n in range(1,m+1):
+	rt = loadbd("r{0}".format(n))
+	for (o,sol) in enumerate(rt("PD")):
+		print pgm, ": run {0} : a solution branch starting from PD{1} from r{2}, varying forcing frequency".format(m+n+o,o+1,n)
+		rr = run(sol, ISW=-1, DS=+1.0, DSMAX=10.0)
+		rr+= run(sol, ISW=-1, DS=-1.0, DSMAX=10.0)
+		rr = rl(mb( rr ))
+		save(rr,"r{0}_{1}".format(n,o+1))
+"""

@@ -1,0 +1,8 @@
+NPAR=    3
+NDIM=   10, IPS =   2, IRS =   0, ILP =   1
+NTST=  400, NCOL=   4, IAD =   3, ISP =   2, ISW = 1, IPLT= 0, NBC= 0, NINT= 0
+NMX=     2, NPR=    1, MXBF=  10, IID =   3, ITMX= 9, ITNW=13, NWTN= 9, JAC=0
+EPSL= 1e-08, EPSU = 1e-08, EPSS = 1e-06
+DS  =  0.1, DSMIN=  1e-07, DSMAX=  1.0, IADS=   1
+THL =  {11: 0.0}, THU = {} #1:0.01,2:1e+6
+parnames={1:'A', 2:'f', 3:'P', 4:'n4', 5:'n5', 6:'n6', 7:'n7', 8:'n8', 9:'n9', 10:'n10', 11:'T'}

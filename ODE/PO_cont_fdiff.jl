@@ -162,16 +162,22 @@ function plotPOs(POs)
 	function mapping(PO)
 		
 		# color map first
-		if isapprox(PO.prob.tspan[2]-PO.prob.tspan[1], PO.BCL; atol=0.1*PO.BCL)
+		M = round(Int, (PO.prob.tspan[2]-PO.prob.tspan[1])/PO.BCL)
+		if M==1
 			col = "black"
-		elseif isapprox(PO.prob.tspan[2]-PO.prob.tspan[1], 2.0*PO.BCL; atol=2.0*0.1*PO.BCL)
+		elseif M==2
 			col = "C0"
-		elseif isapprox(PO.prob.tspan[2]-PO.prob.tspan[1], 4.0*PO.BCL; atol=4.0*0.1*PO.BCL)
+		elseif M==4
 			col = "C1"
 		end
 		
 		# stability mapping
-		Λ = eigvals(PO.J)
+		A = I
+		A = A * J[1:10, 10(M-1) .+ (1:10)]
+		for m=1:(M-1)
+			A = A * J[m*10 .+ (1:10), (m-1)*10 .+ (1:10)];
+		end
+		Λ = eigvals(A)
 		if maximum(abs.(Λ)) > 1.00 + atol
 			ms = 3.0
 		else
@@ -207,7 +213,7 @@ sol = solve(prob, Tsit5(), saveat=BCL)
 x = sol[:,end]			# 1-cycle
 prob = remake(prob, u0=x, p=[1.0,2.3,f,1.0], tspan=(0.0,BCLfromp([1.0,2.3,f,1.0])))
 df= 0.0
-while f <= 25.0
+while f < 25.0
 	success = accumulatePOs!(POs, x; prob=prob, p=[1.0,2.3,f+df,1.0], BCL=BCLfromp([1.0,2.3,f+df,1.0]), V90=V90)
 	print("($(f), $(df), $(success))\n");
 	if success 
@@ -220,6 +226,7 @@ while f <= 25.0
 	global x = sol[:,1][:]
 
 	plotPOs(POs);
+	
 end
 f=1.25
 prob = remake(prob, u0=u0, p=[1.0,2.3,f,1.0], tspan=(0.0, 20000.0))
@@ -227,11 +234,11 @@ sol = solve(prob, Tsit5(), saveat=BCL)
 x = sol[:,end]			# 1-cycle		# 1-cycle
 prob = remake(prob, u0=x, p=[1.0,2.3,f,1.0], tspan=(0.0,BCLfromp([1.0,2.3,f,1.0])))
 df= 0.00
-while f >= 1.0
+while f > 1.0
 	success = accumulatePOs!(POs, x; prob=prob, p=[1.0,2.3,f-df,1.0], BCL=BCLfromp([1.0,2.3,f-df,1.0]), V90=V90)
 	print("($(f), $(df), $(success))\n");
 	if success 
-		global f = max(min(f+df,25.0),1.0)
+		global f = max(min(f-df,25.0),1.0)
 		global df = min(max(1.10*df,0.02), 1.0)
 	else
 		global df = max(min(0.95*df,0.02), 1.0)
@@ -273,7 +280,7 @@ x = sol[:,(end-1):end][:]	# 2-cycle
 prob = remake(prob, u0=x, p=[1.0,2.3,f,1.0], tspan=(0.0,2BCLfromp([1.0,2.3,f,1.0])))
 df=0.0
 # continuation
-while f <= 25.0
+while f < 25.0
 	success = accumulatePOs!(POs, x; prob=prob, p=[1.0,2.3,f-df,1.0], BCL=BCLfromp([1.0,2.3,f-df,1.0]), V90=V90)
 	print("($(f), $(df), $(success))\n");
 	if success 
@@ -297,7 +304,7 @@ x = sol[:,(end-3):end][:]	# 4-cycle
 
 # continuation
 df= 0.0
-while f <= 25.0
+while f < 25.0
 	success = accumulatePOs!(POs, x; prob=prob, p=[1.0,2.3,f+df,1.0], BCL=BCLfromp([1.0,2.3,f+df,1.0]), V90=V90)
 	print("($(f), $(df), $(success))\n");
 	if success 

@@ -3,7 +3,10 @@ using DynamicalSystems
 using LinearAlgebra
 using JLD2, FileIO
 using ForwardDiff
+<<<<<<< HEAD
 using Sundials
+=======
+>>>>>>> ea59ab668f4a1028638a78c9d625fd3c53043e13
 using NLsolve
 using PyPlot
 
@@ -93,7 +96,10 @@ function resolvePO(x)
 	end
 	
 	res = nlsolve(only_fj!(FJ!), x; ftol=1e-8, xtol=rtol*norm(x,Inf), show_trace=true)
+<<<<<<< HEAD
 	print("\n\n")
+=======
+>>>>>>> ea59ab668f4a1028638a78c9d625fd3c53043e13
 	F = similar(x)
 	J = zeros(length(x), length(x))
 	
@@ -181,6 +187,7 @@ end
 
 POs = PO[]
 
+<<<<<<< HEAD
 for (f, ncycle) in zip([1.25, 3.125, 4.95, 6.25], [1, 2, 4, 8])
 	p = [1.0,2.3,f,1.0]; BCL=BCLfromp(p);
 	prob = remake(prob, u0=u0, p=p, tspan=(0.0, 50BCL))
@@ -199,6 +206,8 @@ for (f, ncycle) in zip([1.25, 3.125, 4.95, 6.25], [1, 2, 4, 8])
 	print("\tΛ = $(floquet(POs[end]))\n");
 end
 	
+=======
+>>>>>>> ea59ab668f4a1028638a78c9d625fd3c53043e13
 #=
 	1:1
 =#
@@ -248,6 +257,7 @@ push!(x, 4BCL)
 appendPOs!(POs, x)
 @show floquet(POs[end])
 
+<<<<<<< HEAD
 #=
 	8:8 
 =#
@@ -260,3 +270,5 @@ push!(x, 8BCL)
 
 appendPOs!(POs, x)
 @show floquet(POs[end])
+=======
+>>>>>>> ea59ab668f4a1028638a78c9d625fd3c53043e13

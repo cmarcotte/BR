@@ -3,10 +3,7 @@ using DynamicalSystems
 using LinearAlgebra
 using JLD2, FileIO
 using ForwardDiff
-<<<<<<< HEAD
 using Sundials
-=======
->>>>>>> ea59ab668f4a1028638a78c9d625fd3c53043e13
 using NLsolve
 using PyPlot
 
@@ -62,6 +59,7 @@ function resolvePO(x)
 	function FJ!(F, J, x)
 		# shared calculations
 		M = Int((length(x)-2)/10)
+		BCL = BCLfromp([1.0,2.3,x[end-1],1.0])
 		function G(x)
 			r = similar(x)
 			r[10M+1:end] .= x[10M+1:end]
@@ -96,10 +94,7 @@ function resolvePO(x)
 	end
 	
 	res = nlsolve(only_fj!(FJ!), x; ftol=1e-8, xtol=rtol*norm(x,Inf), show_trace=true)
-<<<<<<< HEAD
 	print("\n\n")
-=======
->>>>>>> ea59ab668f4a1028638a78c9d625fd3c53043e13
 	F = similar(x)
 	J = zeros(length(x), length(x))
 	
@@ -187,88 +182,46 @@ end
 
 POs = PO[]
 
-<<<<<<< HEAD
-for (f, ncycle) in zip([1.25, 3.125, 4.95, 6.25], [1, 2, 4, 8])
-	p = [1.0,2.3,f,1.0]; BCL=BCLfromp(p);
-	prob = remake(prob, u0=u0, p=p, tspan=(0.0, 50BCL))
-	sol = solve(prob,  CVODE_BDF(linear_solver=:GMRES), saveat=BCL, abstol=atol, reltol=rtol)
-	nn = 1:size(sol, 2)-ncycle
-	dd = zeros(length(nn))
-	for n in nn
-		dd[n] = norm(sol[:,n] .- sol[:,n+ncycle])
+function trialPOs(prob, fs, ns)
+
+	fig,axs = plt.subplots(1,2,figsize=(5.3,3.0), sharey=true)
+
+	for (f, ncycle) in zip(fs, ns)
+		print("Searching for $(ncycle)-cycle at f=$(f).\n")
+		p = [1.0,2.3,f,1.0]; BCL=BCLfromp(p);
+		prob = remake(prob, u0=u0, p=p, tspan=(0.0, 50BCL))
+		sol = solve(prob,  CVODE_BDF(linear_solver=:GMRES), saveat=BCL, abstol=atol, reltol=rtol)
+		nn = 1:size(sol, 2)-ncycle
+		dd = zeros(length(nn))
+		for n in nn
+			dd[n] = norm(sol[:,n] .- sol[:,n+ncycle])
+		end
+		nx = argmin(dd)
+		x = sol[:,nx-1 .+ (1:ncycle)][:]
+		push!(x, f)
+		push!(x, ncycle*BCL)
+
+		appendPOs!(POs, x)
+		
+		prob = remake(prob, u0=POs[end].x[1:10], p=p, tspan=(0.0, POs[end].x[end]))
+		sol = solve(prob, Tsit5(), abstol=atol, reltol=rtol)
+		
+		axs[1].plot(sol.t,	sol[1,:],	label="n=$(ncycle)")
+		axs[2].plot(sol[3,:],	sol[1,:],	label="n=$(ncycle)")
+
+		if ncycle == ns[1]
+			axs[1].set_xlabel("\$ t \$")
+			axs[1].set_ylabel("\$ V(t) \$")
+			axs[2].set_xlabel("\$ x(t) \$")
+		elseif ncycle == ns[end]
+			axs[1].legend(loc=0, edgecolor="none")
+		end
+		print("\tΛ = $(floquet(POs[end]))\n");
 	end
-	nx = argmin(dd)
-	x = sol[:,nx-ncycle .+ (1:ncycle)][:]
-	push!(x, f)
-	push!(x, ncycle*BCL)
-
-	appendPOs!(POs, x)
-	print("\tΛ = $(floquet(POs[end]))\n");
+	tight_layout()
+	plt.savefig("./figures/multishooting_fdiff_POs.pdf")
+	plt.close()
 end
-	
-=======
->>>>>>> ea59ab668f4a1028638a78c9d625fd3c53043e13
-#=
-	1:1
-=#
-f=1.24; p = [1.0,2.3,f,1.0]; BCL=BCLfromp(p);
-prob = remake(prob, u0=u0, p=p, tspan=(0.0, 50BCL))
-sol = solve(prob, Tsit5(), saveat=BCL)
-x = sol[:,end]
-push!(x, f)
-push!(x, BCL)
 
-appendPOs!(POs, x)
-@show floquet(POs[end])
+trialPOs(prob, [1.25, 3.125, 4.95, 5.75, 6.25], [1, 2, 4, 8, 16])
 
-f=1.25; p = [1.0,2.3,f,1.0]; BCL=BCLfromp(p);
-prob = remake(prob, u0=u0, p=p, tspan=(0.0, 50BCL))
-sol = solve(prob, Tsit5(), saveat=BCL)
-x = sol[:,end]
-push!(x, f)
-push!(x, BCL)
-
-appendPOs!(POs, x)
-@show floquet(POs[end])
-
-#=
-	2:2
-=#
-f=3.125; p = [1.0,2.3,f,1.0]; BCL=BCLfromp(p);
-prob = remake(prob, u0=u0, p=[1.0,2.3,f,1.0], tspan=(0.0, 50BCL))
-sol = solve(prob, Tsit5(), saveat=BCL)
-x = sol[:,(end-1):end][:]	# 2-cycle
-push!(x, f)
-push!(x, 2BCL)
-
-appendPOs!(POs, x)
-@show floquet(POs[end])
-
-#=
-	4:4 
-=#
-f=4.95; p = [1.0,2.3,f,1.0]; BCL=BCLfromp(p);
-prob = remake(prob, u0=u0, p=[1.0,2.3,f,1.0], tspan=(0.0, 50BCL))
-sol = solve(prob, Tsit5(), saveat=BCLfromp([1.0,2.3,f,1.0]))
-x = sol[:,(end-3):end][:]
-push!(x, f)
-push!(x, 4BCL)
-
-appendPOs!(POs, x)
-@show floquet(POs[end])
-
-<<<<<<< HEAD
-#=
-	8:8 
-=#
-f=6.25; p = [1.0,2.3,f,1.0]; BCL=BCLfromp(p);
-prob = remake(prob, u0=u0, p=[1.0,2.3,f,1.0], tspan=(0.0, 50BCL))
-sol = solve(prob, Tsit5(), saveat=BCLfromp([1.0,2.3,f,1.0]))
-x = sol[:,(end-7):end][:]
-push!(x, f)
-push!(x, 8BCL)
-
-appendPOs!(POs, x)
-@show floquet(POs[end])
-=======
->>>>>>> ea59ab668f4a1028638a78c9d625fd3c53043e13

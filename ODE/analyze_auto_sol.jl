@@ -9,6 +9,9 @@ using PyPlot
 using FileIO
 using JLD2
 
+# for plotting style
+plt.style.use("seaborn-paper")
+
 push!(LOAD_PATH,pwd())
 using BR
 
@@ -20,9 +23,6 @@ jac = eval(ModelingToolkit.generate_jacobian(sys)[2]) # jac( j, u, p, t)
 # this problem structure will be remake'd and reused for resolving the auto PO and for computing 
 # the Jacobian of the resolved orbit
 prob = ODEProblem(ODEFunction(ode, jac=jac), BR.u0, (0.0,1.0), BR.p)
-
-# for plotting style
-plt.style.use("seaborn-paper")
 
 # these set tolerances for the ODE solve and Newton iterations
 atol = 1e-9
@@ -118,6 +118,7 @@ function resolvePO(x,p)
 	res = nlsolve(only_fj!(FJ!), x; ftol=atol, xtol=rtol*norm(x,Inf), show_trace=true)
 	print("\n\n")
 	print("\t |u - u_0| = $(norm(res.zero .- x))\n")
+
 	F = similar(x)
 	J = zeros(length(x), length(x))
 	
@@ -149,7 +150,7 @@ function decompose_periodic_solution(t, V, BCL; V90=BR.V90)
 	q=1; while q < lt-1 && ~(V[q] <= V90 && V[q+1] > V90); q=q+1; end; #print("Index q=$(q), length(t)=$(lt).\n");
 	t = vcat(t, t[end].+t[2:end])
 	V = vcat(V, V[2:end])
-	
+
 	# storage for APD, DI, APA for this BCL
 	APD = Float64[]
 	APA = Float64[]
@@ -162,6 +163,7 @@ function decompose_periodic_solution(t, V, BCL; V90=BR.V90)
 
 	# look over the voltage trace, comparing to V90
 	for n in q:(q+lt-1)
+
 	
 		if V[n] > V90
 			if V[n-1] < V90
@@ -177,6 +179,7 @@ function decompose_periodic_solution(t, V, BCL; V90=BR.V90)
 				apa = V90;
 			end
 		end
+
 		if V[n] < V90
 			if V[n-1] > V90
 				di = 0.0;
@@ -230,6 +233,7 @@ function buildPOs(POs, basedir)
 
 			for m=1:M	
 				tmp_prob = remake(prob, u0=res.zero[(m-1)*10 .+ (1:10)], p=p, tspan=(res.zero[end]*(m-1)/M, res.zero[end]*(m)/M))
+
 				sol = solve(tmp_prob, Tsit5(); abstol=atol, reltol=rtol, maxiters=mitr)
 				push!(t, sol.t[1:end-1])
 				push!(V, sol[1,1:end-1])

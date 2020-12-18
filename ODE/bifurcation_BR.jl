@@ -53,9 +53,10 @@ ADEs = []
 DDEs = []
 
 # BCL sweep range
-BCL_range = 1000.0:-2.0:40.0
+BCL_range = 114.0:-0.01:110.0
 
-savefile = "./data/data_$(p[2])_$(p[4]).jld2"
+filename = "zoom_$(p[2])_$(p[4])"
+savefile = "./data/data_$(filename).jld2"
 
 try
 	global APDs = load(savefile,"APDs")
@@ -204,7 +205,7 @@ axs[2].set_xlabel("DI [ms]")
 axs[1].set_ylabel("APD [ms]")
 axs[2].set_ylabel("APA [mV]")
 tight_layout()
-savefig("./figures/_BR_DI_APD_APA_$(p[2])_$(p[4]).pdf")
+savefig("./figures/_BR_DI_APD_APA_$(filename).pdf")
 close()
 
 fig,axs = plt.subplots(2,1,figsize=(4,3), sharex=true)
@@ -217,7 +218,7 @@ axs[2].set_ylabel("\$ d_{APA} \$")
 axs[2].set_xlabel("BCL [ms]")
 #axs[2].set_xlim([0.0,400.0])
 tight_layout()
-savefig("./figures/_BR_BCL_DIM_$(p[2])_$(p[4]).pdf")
+savefig("./figures/_BR_BCL_DIM_$(filename).pdf")
 close()
 
 fig,axs = plt.subplots(2,1,figsize=(4,3), sharex=true)
@@ -230,7 +231,7 @@ axs[1].set_ylabel("APA [mV]")
 axs[2].set_ylabel("APD [ms]")
 #axs[2].set_xlim([0.0,400.0])
 tight_layout()
-savefig("./figures/_BR_BCL_APA_APD_$(p[2])_$(p[4]).pdf")
+savefig("./figures/_BR_BCL_APA_APD_$(filename).pdf")
 close()
 
 fig,axs = plt.subplots(2,1,figsize=(4,3), sharex=true)
@@ -244,7 +245,7 @@ axs[1].set_ylabel("APA [mV]")
 axs[2].set_ylabel("\$ \\lambda_1 \$ [1/ms]")
 #axs[2].set_xlim([0.0,400.0])
 tight_layout()
-savefig("./figures/_BR_BCL_ALE_$(p[2])_$(p[4]).pdf")
+savefig("./figures/_BR_BCL_ALE_$(filename).pdf")
 close()
 
 fig,axs = plt.subplots(2,1,figsize=(4,3), sharex=true)
@@ -258,5 +259,5 @@ axs[1].set_ylabel("APD [ms]")
 axs[2].set_ylabel("\$ \\lambda_1 \$ [1/ms]")
 #axs[2].set_xlim([0.0,400.0])
 tight_layout()
-savefig("./figures/_BR_BCL_DLE_$(p[2])_$(p[4]).pdf")
+savefig("./figures/_BR_BCL_DLE_$(filename).pdf")
 close()

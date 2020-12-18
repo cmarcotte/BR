@@ -31,17 +31,6 @@ V90 = BR.V90
 # get runprob from BR
 prob = BR.prob
 
-
-function BCLfromp(p::Array)
-
-	f = p[3];
-	if p[4] > 1 && mod(p[4],2) == 0
-		f = 2.0*f;
-	end
-	BCL = 1000.0/f;
-	return BCL
-end
-
 # PO structure type
 struct PO
 	M::Int
@@ -52,6 +41,16 @@ struct PO
 	APA
 	DI
 	BCL
+end
+
+function BCLfromp(p::Array)
+
+	f = p[3];
+	if p[4] > 1 && mod(p[4],2) == 0
+		f = 2.0*f;
+	end
+	BCL = 1000.0/f;
+	return BCL
 end
 
 function resolvePO(x)
@@ -223,5 +222,5 @@ function trialPOs(prob, fs, ns)
 	plt.close()
 end
 
-trialPOs(prob, [1.25, 3.125, 4.95, 5.75, 6.25], [1, 2, 4, 8, 16])
-
+#trialPOs(prob, [1.25, 3.125, 4.95, 5.75, 6.25], [1, 2, 4, 8, 16])
+trialPOs(prob, [6.25], [3])

@@ -35,7 +35,7 @@ function pltt(Cs,Xs,Ls; ftype="png")
 	
 	axs[2].plot([0.0,400.0],[0.0, 0.0], "-r")
 	
-	for q=3:-1:1
+	for q=[8,4,3,2,1]
 		
 		for n in 1:length(Cs)
 	
@@ -124,7 +124,7 @@ ulim = [30.0, 300.0]
 # PO tolerance
 tol = 1e-13
 
-while length(Xs) < 10000
+while length(Xs) < 12000
 	
 	# randomly sample space
 	c = (clim[1] + (clim[2]-clim[1])*rand(Float64))
@@ -192,6 +192,7 @@ while length(Xs) < 10000
 	end
 	
 end
+pltt(Cs,Xs,Ls; ftype="pdf")
 
 @save "POs.jld2" Cs Xs Ls
 pltt(Cs,Xs,Ls; ftype="pdf")

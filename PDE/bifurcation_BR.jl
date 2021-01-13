@@ -20,7 +20,7 @@ u0 = BRPDE.u0
 
 # parameters
 p = BRPDE.p
-p[2] = 100.0; p[4] = 500.0
+p[2] = 50.0; p[4] = 100.0
 
 # define V90 threshold
 V90 = BRPDE.V90

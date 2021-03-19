@@ -30,7 +30,7 @@ prob = BR.prob
 runprob = BR.runprob
 
 # new tspan
-tspan = [0.0, 20000.0]
+tspan = [0.0, 40000.0]
 
 # collect APDs
 APDs = []
@@ -53,10 +53,46 @@ ADEs = []
 DDEs = []
 
 # BCL sweep range
-BCL_range = 114.0:-0.01:110.0
+BCL_range = 1000.0:-2.0:40.0
 
 filename = "zoom_$(p[2])_$(p[4])"
 savefile = "./data/data_$(filename).jld2"
+
+function compute_lyap_dim(data; plot_stretch=false)
+
+	lyap = []
+	dim  = []
+	
+	if plot_stretch
+		fig = figure(figsize=(10,6))
+	end
+	
+	ks = 1:20
+	
+	for (i, di) in enumerate([Euclidean(), Cityblock()])
+		if plot_stretch
+			subplot(1, 2, i)
+			title("Distance: $(di)", size = 18)
+		end
+		neigh=1:5
+		for n in neigh
+			for D in 1:4
+				R = embed(data, D, 1)
+				d = takens_best_estimate(R, std(V)/4)
+				E = numericallyapunov(R, ks; distance = di, ntype=FixedMassNeighborhood(n))
+				l = linear_region(ks.*1, E)[2]
+				if plot_stretch
+					plot(ks .- ks[1], E .- E[1], label = "D=$D, n=$n, λ=$(round(l, digits = 3))")
+					legend(ncol=length(neigh), loc="lower center")
+					tight_layout()
+				end
+				push!(dim, d)
+				push!(lyap, l)
+			end
+		end
+	end
+	return lyap, dim
+end
 
 try
 	global APDs = load(savefile,"APDs")
@@ -162,9 +198,10 @@ catch
 		
 		# reconstruct the APD array as a delay-coordinate embedding
 		try
-			R = reconstruct(APA, 1, 1)
-			ALE = numericallyapunov(R, 1:5; ntype=FixedMassNeighborhood(2))
-			ADE = takens_best_estimate(R, std(V)/4)
+			#R = reconstruct(APA, 1, 1)
+			#ALE = numericallyapunov(R, 1:5; ntype=FixedMassNeighborhood(2))
+			#ADE = takens_best_estimate(R, std(V)/4)
+			ALE, ADE = compute_lyap_dim(APA)
 			push!(ALEs, ALE)
 			push!(ADEs, ADE)
 		catch
@@ -175,9 +212,10 @@ catch
 			push!(ADEs, ADE)
 		end
 		try
-			R = reconstruct(APD, 1, 1)
-			DLE = numericallyapunov(R, 1:5; ntype=FixedMassNeighborhood(2))
-			DDE = takens_best_estimate(R, std(V)/4)
+			#R = reconstruct(APD, 1, 1)
+			#DLE = numericallyapunov(R, 1:5; ntype=FixedMassNeighborhood(2))
+			#DDE = takens_best_estimate(R, std(V)/4)
+			DLE, DDE = compute_lyap_dim(APD)
 			push!(DLEs, DLE)
 			push!(DDEs, DDE)
 		catch

@@ -42,7 +42,7 @@ function BRN!(dx,x,p,t)
 	df = view(dx,(1+7N):(8N))
 	
 	# iterate over space
-	Threads.@threads for n in 1:N
+	Threads for n in 1:N
 	
 		# spatially local currents
 		IK = (exp(0.08*(V[n]+53.0)) + exp(0.04*(V[n]+53.0)))

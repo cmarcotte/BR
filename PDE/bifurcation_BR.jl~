@@ -122,9 +122,6 @@ function sweep(prob, BCL_range; V90=BRPDE.V90, measure_ind=Int(4*BRPDE.N/5))
 
 end
 
-APDs, APAs, BCLs, DIs = sweep(prob, BCL_range)
-
-
 function plotresults(APDs, APAs, BCLs, DIs, DLEs, DDEs, ALEs, ADEs; fig_append="$(p[2])_$(p[4])")
 
 	# Plot (BCLs, APDs, DIs, APAs, DLEs, ALEs, DDEs, ADEs)
@@ -199,7 +196,7 @@ function plotresults(APDs, APAs, BCLs, DIs, DLEs, DDEs, ALEs, ADEs; fig_append="
 =#
 end
 
-#=
+
 try
 
 	APDs, APAs, BCLs, DIs, DLEs, DDEs, ALEs, ADEs = loaddata(savefile)
@@ -219,6 +216,6 @@ catch
 	plotresults(APDs, APAs, BCLs, DIs, DLEs, DDEs, ALEs, ADEs, p)
 
 end
-=#
+
 
 

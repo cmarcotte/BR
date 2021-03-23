@@ -14,7 +14,7 @@ using JLD2
 #	>> julia bifurcation_run.jl
 push!(LOAD_PATH,pwd())
 using BRPDE
-BRPDE.test()
+#BRPDE.test()
 
 plt.style.use("seaborn-paper")
 

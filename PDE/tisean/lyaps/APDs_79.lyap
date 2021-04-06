@@ -1,0 +1,1194 @@
+#epsilon= 1.000000e+00  dim= 2
+
+#epsilon= 1.000000e+00  dim= 3
+
+#epsilon= 1.000000e+00  dim= 4
+
+#epsilon= 1.000000e+00  dim= 5
+
+#epsilon= 1.000000e+00  dim= 6
+
+#epsilon= 1.000000e+00  dim= 7
+
+#epsilon= 1.000000e+00  dim= 8
+
+#epsilon= 1.000000e+00  dim= 9
+
+#epsilon= 1.000000e+00  dim= 10
+
+#epsilon= 1.000000e+00  dim= 11
+
+#epsilon= 1.000000e+00  dim= 12
+
+#epsilon= 1.000000e+00  dim= 13
+
+#epsilon= 1.000000e+00  dim= 14
+
+#epsilon= 1.000000e+00  dim= 15
+
+#epsilon= 1.000000e+00  dim= 16
+
+#epsilon= 1.000000e+00  dim= 17
+
+#epsilon= 1.000000e+00  dim= 18
+
+#epsilon= 1.000000e+00  dim= 19
+
+#epsilon= 1.000000e+00  dim= 20
+
+#epsilon= 1.000000e+00  dim= 21
+
+#epsilon= 1.000000e+00  dim= 22
+
+#epsilon= 1.000000e+00  dim= 23
+
+#epsilon= 1.000000e+00  dim= 24
+
+#epsilon= 1.000000e+00  dim= 25
+
+#epsilon= 1.000000e+00  dim= 26
+
+#epsilon= 1.000000e+00  dim= 27
+
+#epsilon= 1.000000e+00  dim= 28
+
+#epsilon= 1.000000e+00  dim= 29
+
+#epsilon= 1.000000e+00  dim= 30
+
+#epsilon= 1.000000e+00  dim= 31
+
+#epsilon= 1.000000e+00  dim= 32
+
+#epsilon= 1.000000e+00  dim= 33
+
+#epsilon= 1.000000e+00  dim= 34
+
+#epsilon= 1.000000e+00  dim= 35
+
+#epsilon= 1.000000e+00  dim= 36
+
+#epsilon= 1.000000e+00  dim= 37
+
+#epsilon= 1.000000e+00  dim= 38
+
+#epsilon= 1.000000e+00  dim= 39
+
+#epsilon= 1.000000e+00  dim= 40
+
+#epsilon= 1.000000e+00  dim= 41
+
+#epsilon= 1.000000e+00  dim= 42
+
+#epsilon= 1.000000e+00  dim= 43
+
+#epsilon= 1.000000e+00  dim= 44
+
+#epsilon= 1.000000e+00  dim= 45
+
+#epsilon= 1.000000e+00  dim= 46
+
+#epsilon= 1.000000e+00  dim= 47
+
+#epsilon= 1.000000e+00  dim= 48
+
+#epsilon= 1.000000e+00  dim= 49
+
+#epsilon= 1.000000e+00  dim= 50
+
+#epsilon= 1.000000e+00  dim= 51
+
+#epsilon= 1.000000e+00  dim= 52
+
+#epsilon= 1.000000e+00  dim= 53
+
+#epsilon= 1.000000e+00  dim= 54
+
+#epsilon= 1.000000e+00  dim= 55
+
+#epsilon= 1.000000e+00  dim= 56
+
+#epsilon= 1.000000e+00  dim= 57
+
+#epsilon= 1.000000e+00  dim= 58
+
+#epsilon= 1.000000e+00  dim= 59
+
+#epsilon= 1.000000e+00  dim= 60
+
+#epsilon= 1.000000e+00  dim= 61
+
+#epsilon= 1.000000e+00  dim= 62
+
+#epsilon= 1.000000e+00  dim= 63
+
+#epsilon= 1.000000e+00  dim= 64
+
+#epsilon= 1.000000e+00  dim= 65
+
+#epsilon= 1.000000e+00  dim= 66
+
+#epsilon= 1.000000e+00  dim= 67
+
+#epsilon= 1.000000e+00  dim= 68
+
+#epsilon= 1.000000e+00  dim= 69
+
+#epsilon= 1.000000e+00  dim= 70
+
+#epsilon= 1.000000e+00  dim= 71
+
+#epsilon= 1.000000e+00  dim= 72
+
+#epsilon= 1.000000e+00  dim= 73
+
+#epsilon= 1.000000e+00  dim= 74
+
+#epsilon= 1.000000e+00  dim= 75
+
+#epsilon= 1.000000e+00  dim= 76
+
+#epsilon= 1.000000e+00  dim= 77
+
+#epsilon= 1.000000e+00  dim= 78
+
+#epsilon= 1.000000e+00  dim= 79
+
+#epsilon= 1.000000e+00  dim= 80
+
+#epsilon= 1.000000e+00  dim= 81
+
+#epsilon= 1.000000e+00  dim= 82
+
+#epsilon= 1.000000e+00  dim= 83
+
+#epsilon= 1.000000e+00  dim= 84
+
+#epsilon= 1.000000e+00  dim= 85
+
+#epsilon= 1.000000e+00  dim= 86
+
+#epsilon= 1.000000e+00  dim= 87
+
+#epsilon= 1.000000e+00  dim= 88
+
+#epsilon= 1.000000e+00  dim= 89
+
+#epsilon= 1.000000e+00  dim= 90
+
+#epsilon= 1.000000e+00  dim= 91
+
+#epsilon= 1.000000e+00  dim= 92
+
+#epsilon= 1.000000e+00  dim= 93
+
+#epsilon= 1.000000e+00  dim= 94
+
+#epsilon= 1.000000e+00  dim= 95
+
+#epsilon= 1.000000e+00  dim= 96
+
+#epsilon= 1.000000e+00  dim= 97
+
+#epsilon= 1.000000e+00  dim= 98
+
+#epsilon= 1.000000e+00  dim= 99
+
+#epsilon= 1.000000e+00  dim= 100
+
+#epsilon= 1.967990e+00  dim= 2
+0 -5.136219e+00 2
+1 -2.209175e+00 2
+2 -1.307943e+00 2
+3 -8.668815e-01 2
+4 -7.215803e-01 2
+5 -1.398466e+00 2
+6 -5.308652e-01 2
+7 -5.803614e-01 2
+8 -1.603482e+00 2
+9 -1.071676e+00 2
+10 -1.232003e+00 2
+11 -2.120093e+00 2
+12 -2.049640e+00 2
+13 -2.269464e+00 2
+14 -3.061064e+00 2
+15 -3.266626e+00 2
+16 -3.499950e+00 2
+17 -3.692877e+00 2
+18 -3.845149e+00 2
+19 -3.991470e+00 2
+20 -4.114406e+00 2
+21 -4.239809e+00 2
+22 -4.352774e+00 2
+23 -4.470346e+00 2
+24 -4.580252e+00 2
+25 -4.694750e+00 2
+26 -4.803938e+00 2
+27 -4.917160e+00 2
+28 -5.026265e+00 2
+29 -5.138817e+00 2
+30 -5.248148e+00 2
+31 -5.359988e+00 2
+32 -5.469280e+00 2
+33 -5.580904e+00 2
+34 -5.690712e+00 2
+35 -5.802246e+00 2
+36 -5.912420e+00 2
+37 -6.024165e+00 2
+38 -6.134820e+00 2
+39 -6.246805e+00 2
+40 -6.357634e+00 2
+41 -6.468421e+00 2
+42 -6.577897e+00 2
+43 -6.688472e+00 2
+44 -6.797519e+00 2
+45 -6.906396e+00 2
+46 -7.014625e+00 2
+47 -7.124458e+00 2
+48 -7.234527e+00 2
+49 -7.345056e+00 2
+50 -7.457145e+00 2
+
+#epsilon= 1.967990e+00  dim= 3
+
+#epsilon= 1.967990e+00  dim= 4
+
+#epsilon= 1.967990e+00  dim= 5
+
+#epsilon= 1.967990e+00  dim= 6
+
+#epsilon= 1.967990e+00  dim= 7
+
+#epsilon= 1.967990e+00  dim= 8
+
+#epsilon= 1.967990e+00  dim= 9
+
+#epsilon= 1.967990e+00  dim= 10
+
+#epsilon= 1.967990e+00  dim= 11
+
+#epsilon= 1.967990e+00  dim= 12
+
+#epsilon= 1.967990e+00  dim= 13
+
+#epsilon= 1.967990e+00  dim= 14
+
+#epsilon= 1.967990e+00  dim= 15
+
+#epsilon= 1.967990e+00  dim= 16
+
+#epsilon= 1.967990e+00  dim= 17
+
+#epsilon= 1.967990e+00  dim= 18
+
+#epsilon= 1.967990e+00  dim= 19
+
+#epsilon= 1.967990e+00  dim= 20
+
+#epsilon= 1.967990e+00  dim= 21
+
+#epsilon= 1.967990e+00  dim= 22
+
+#epsilon= 1.967990e+00  dim= 23
+
+#epsilon= 1.967990e+00  dim= 24
+
+#epsilon= 1.967990e+00  dim= 25
+
+#epsilon= 1.967990e+00  dim= 26
+
+#epsilon= 1.967990e+00  dim= 27
+
+#epsilon= 1.967990e+00  dim= 28
+
+#epsilon= 1.967990e+00  dim= 29
+
+#epsilon= 1.967990e+00  dim= 30
+
+#epsilon= 1.967990e+00  dim= 31
+
+#epsilon= 1.967990e+00  dim= 32
+
+#epsilon= 1.967990e+00  dim= 33
+
+#epsilon= 1.967990e+00  dim= 34
+
+#epsilon= 1.967990e+00  dim= 35
+
+#epsilon= 1.967990e+00  dim= 36
+
+#epsilon= 1.967990e+00  dim= 37
+
+#epsilon= 1.967990e+00  dim= 38
+
+#epsilon= 1.967990e+00  dim= 39
+
+#epsilon= 1.967990e+00  dim= 40
+
+#epsilon= 1.967990e+00  dim= 41
+
+#epsilon= 1.967990e+00  dim= 42
+
+#epsilon= 1.967990e+00  dim= 43
+
+#epsilon= 1.967990e+00  dim= 44
+
+#epsilon= 1.967990e+00  dim= 45
+
+#epsilon= 1.967990e+00  dim= 46
+
+#epsilon= 1.967990e+00  dim= 47
+
+#epsilon= 1.967990e+00  dim= 48
+
+#epsilon= 1.967990e+00  dim= 49
+
+#epsilon= 1.967990e+00  dim= 50
+
+#epsilon= 1.967990e+00  dim= 51
+
+#epsilon= 1.967990e+00  dim= 52
+
+#epsilon= 1.967990e+00  dim= 53
+
+#epsilon= 1.967990e+00  dim= 54
+
+#epsilon= 1.967990e+00  dim= 55
+
+#epsilon= 1.967990e+00  dim= 56
+
+#epsilon= 1.967990e+00  dim= 57
+
+#epsilon= 1.967990e+00  dim= 58
+
+#epsilon= 1.967990e+00  dim= 59
+
+#epsilon= 1.967990e+00  dim= 60
+
+#epsilon= 1.967990e+00  dim= 61
+
+#epsilon= 1.967990e+00  dim= 62
+
+#epsilon= 1.967990e+00  dim= 63
+
+#epsilon= 1.967990e+00  dim= 64
+
+#epsilon= 1.967990e+00  dim= 65
+
+#epsilon= 1.967990e+00  dim= 66
+
+#epsilon= 1.967990e+00  dim= 67
+
+#epsilon= 1.967990e+00  dim= 68
+
+#epsilon= 1.967990e+00  dim= 69
+
+#epsilon= 1.967990e+00  dim= 70
+
+#epsilon= 1.967990e+00  dim= 71
+
+#epsilon= 1.967990e+00  dim= 72
+
+#epsilon= 1.967990e+00  dim= 73
+
+#epsilon= 1.967990e+00  dim= 74
+
+#epsilon= 1.967990e+00  dim= 75
+
+#epsilon= 1.967990e+00  dim= 76
+
+#epsilon= 1.967990e+00  dim= 77
+
+#epsilon= 1.967990e+00  dim= 78
+
+#epsilon= 1.967990e+00  dim= 79
+
+#epsilon= 1.967990e+00  dim= 80
+
+#epsilon= 1.967990e+00  dim= 81
+
+#epsilon= 1.967990e+00  dim= 82
+
+#epsilon= 1.967990e+00  dim= 83
+
+#epsilon= 1.967990e+00  dim= 84
+
+#epsilon= 1.967990e+00  dim= 85
+
+#epsilon= 1.967990e+00  dim= 86
+
+#epsilon= 1.967990e+00  dim= 87
+
+#epsilon= 1.967990e+00  dim= 88
+
+#epsilon= 1.967990e+00  dim= 89
+
+#epsilon= 1.967990e+00  dim= 90
+
+#epsilon= 1.967990e+00  dim= 91
+
+#epsilon= 1.967990e+00  dim= 92
+
+#epsilon= 1.967990e+00  dim= 93
+
+#epsilon= 1.967990e+00  dim= 94
+
+#epsilon= 1.967990e+00  dim= 95
+
+#epsilon= 1.967990e+00  dim= 96
+
+#epsilon= 1.967990e+00  dim= 97
+
+#epsilon= 1.967990e+00  dim= 98
+
+#epsilon= 1.967990e+00  dim= 99
+
+#epsilon= 1.967990e+00  dim= 100
+
+#epsilon= 3.872983e+00  dim= 2
+0 -5.136219e+00 2
+1 -2.209175e+00 2
+2 -1.307943e+00 2
+3 -8.668815e-01 2
+4 -7.215803e-01 2
+5 -1.398466e+00 2
+6 -5.308652e-01 2
+7 -5.803614e-01 2
+8 -1.603482e+00 2
+9 -1.071676e+00 2
+10 -1.232003e+00 2
+11 -2.120093e+00 2
+12 -2.049640e+00 2
+13 -2.269464e+00 2
+14 -3.061064e+00 2
+15 -3.266626e+00 2
+16 -3.499950e+00 2
+17 -3.692877e+00 2
+18 -3.845149e+00 2
+19 -3.991470e+00 2
+20 -4.114406e+00 2
+21 -4.239809e+00 2
+22 -4.352774e+00 2
+23 -4.470346e+00 2
+24 -4.580252e+00 2
+25 -4.694750e+00 2
+26 -4.803938e+00 2
+27 -4.917160e+00 2
+28 -5.026265e+00 2
+29 -5.138817e+00 2
+30 -5.248148e+00 2
+31 -5.359988e+00 2
+32 -5.469280e+00 2
+33 -5.580904e+00 2
+34 -5.690712e+00 2
+35 -5.802246e+00 2
+36 -5.912420e+00 2
+37 -6.024165e+00 2
+38 -6.134820e+00 2
+39 -6.246805e+00 2
+40 -6.357634e+00 2
+41 -6.468421e+00 2
+42 -6.577897e+00 2
+43 -6.688472e+00 2
+44 -6.797519e+00 2
+45 -6.906396e+00 2
+46 -7.014625e+00 2
+47 -7.124458e+00 2
+48 -7.234527e+00 2
+49 -7.345056e+00 2
+50 -7.457145e+00 2
+
+#epsilon= 3.872983e+00  dim= 3
+
+#epsilon= 3.872983e+00  dim= 4
+
+#epsilon= 3.872983e+00  dim= 5
+
+#epsilon= 3.872983e+00  dim= 6
+
+#epsilon= 3.872983e+00  dim= 7
+
+#epsilon= 3.872983e+00  dim= 8
+
+#epsilon= 3.872983e+00  dim= 9
+
+#epsilon= 3.872983e+00  dim= 10
+
+#epsilon= 3.872983e+00  dim= 11
+
+#epsilon= 3.872983e+00  dim= 12
+
+#epsilon= 3.872983e+00  dim= 13
+
+#epsilon= 3.872983e+00  dim= 14
+
+#epsilon= 3.872983e+00  dim= 15
+
+#epsilon= 3.872983e+00  dim= 16
+
+#epsilon= 3.872983e+00  dim= 17
+
+#epsilon= 3.872983e+00  dim= 18
+
+#epsilon= 3.872983e+00  dim= 19
+
+#epsilon= 3.872983e+00  dim= 20
+
+#epsilon= 3.872983e+00  dim= 21
+
+#epsilon= 3.872983e+00  dim= 22
+
+#epsilon= 3.872983e+00  dim= 23
+
+#epsilon= 3.872983e+00  dim= 24
+
+#epsilon= 3.872983e+00  dim= 25
+
+#epsilon= 3.872983e+00  dim= 26
+
+#epsilon= 3.872983e+00  dim= 27
+
+#epsilon= 3.872983e+00  dim= 28
+
+#epsilon= 3.872983e+00  dim= 29
+
+#epsilon= 3.872983e+00  dim= 30
+
+#epsilon= 3.872983e+00  dim= 31
+
+#epsilon= 3.872983e+00  dim= 32
+
+#epsilon= 3.872983e+00  dim= 33
+
+#epsilon= 3.872983e+00  dim= 34
+
+#epsilon= 3.872983e+00  dim= 35
+
+#epsilon= 3.872983e+00  dim= 36
+
+#epsilon= 3.872983e+00  dim= 37
+
+#epsilon= 3.872983e+00  dim= 38
+
+#epsilon= 3.872983e+00  dim= 39
+
+#epsilon= 3.872983e+00  dim= 40
+
+#epsilon= 3.872983e+00  dim= 41
+
+#epsilon= 3.872983e+00  dim= 42
+
+#epsilon= 3.872983e+00  dim= 43
+
+#epsilon= 3.872983e+00  dim= 44
+
+#epsilon= 3.872983e+00  dim= 45
+
+#epsilon= 3.872983e+00  dim= 46
+
+#epsilon= 3.872983e+00  dim= 47
+
+#epsilon= 3.872983e+00  dim= 48
+
+#epsilon= 3.872983e+00  dim= 49
+
+#epsilon= 3.872983e+00  dim= 50
+
+#epsilon= 3.872983e+00  dim= 51
+
+#epsilon= 3.872983e+00  dim= 52
+
+#epsilon= 3.872983e+00  dim= 53
+
+#epsilon= 3.872983e+00  dim= 54
+
+#epsilon= 3.872983e+00  dim= 55
+
+#epsilon= 3.872983e+00  dim= 56
+
+#epsilon= 3.872983e+00  dim= 57
+
+#epsilon= 3.872983e+00  dim= 58
+
+#epsilon= 3.872983e+00  dim= 59
+
+#epsilon= 3.872983e+00  dim= 60
+
+#epsilon= 3.872983e+00  dim= 61
+
+#epsilon= 3.872983e+00  dim= 62
+
+#epsilon= 3.872983e+00  dim= 63
+
+#epsilon= 3.872983e+00  dim= 64
+
+#epsilon= 3.872983e+00  dim= 65
+
+#epsilon= 3.872983e+00  dim= 66
+
+#epsilon= 3.872983e+00  dim= 67
+
+#epsilon= 3.872983e+00  dim= 68
+
+#epsilon= 3.872983e+00  dim= 69
+
+#epsilon= 3.872983e+00  dim= 70
+
+#epsilon= 3.872983e+00  dim= 71
+
+#epsilon= 3.872983e+00  dim= 72
+
+#epsilon= 3.872983e+00  dim= 73
+
+#epsilon= 3.872983e+00  dim= 74
+
+#epsilon= 3.872983e+00  dim= 75
+
+#epsilon= 3.872983e+00  dim= 76
+
+#epsilon= 3.872983e+00  dim= 77
+
+#epsilon= 3.872983e+00  dim= 78
+
+#epsilon= 3.872983e+00  dim= 79
+
+#epsilon= 3.872983e+00  dim= 80
+
+#epsilon= 3.872983e+00  dim= 81
+
+#epsilon= 3.872983e+00  dim= 82
+
+#epsilon= 3.872983e+00  dim= 83
+
+#epsilon= 3.872983e+00  dim= 84
+
+#epsilon= 3.872983e+00  dim= 85
+
+#epsilon= 3.872983e+00  dim= 86
+
+#epsilon= 3.872983e+00  dim= 87
+
+#epsilon= 3.872983e+00  dim= 88
+
+#epsilon= 3.872983e+00  dim= 89
+
+#epsilon= 3.872983e+00  dim= 90
+
+#epsilon= 3.872983e+00  dim= 91
+
+#epsilon= 3.872983e+00  dim= 92
+
+#epsilon= 3.872983e+00  dim= 93
+
+#epsilon= 3.872983e+00  dim= 94
+
+#epsilon= 3.872983e+00  dim= 95
+
+#epsilon= 3.872983e+00  dim= 96
+
+#epsilon= 3.872983e+00  dim= 97
+
+#epsilon= 3.872983e+00  dim= 98
+
+#epsilon= 3.872983e+00  dim= 99
+
+#epsilon= 3.872983e+00  dim= 100
+
+#epsilon= 7.621991e+00  dim= 2
+0 -4.215581e+00 3
+1 -1.595826e+00 3
+2 -8.746688e-01 3
+3 -6.161914e-01 3
+4 -6.837941e-01 3
+5 -1.535044e+00 3
+6 -6.583213e-01 3
+7 -7.077092e-01 3
+8 -1.991469e+00 3
+9 -1.322170e+00 3
+10 -1.113738e+00 3
+11 -1.533568e+00 3
+12 -1.540869e+00 3
+13 -2.147411e+00 3
+14 -2.301942e+00 3
+15 -2.442365e+00 3
+16 -2.882036e+00 3
+17 -2.925712e+00 3
+18 -3.109205e+00 3
+19 -3.580408e+00 3
+20 -3.741500e+00 3
+21 -3.913913e+00 3
+22 -4.064525e+00 3
+23 -4.194762e+00 3
+24 -4.321981e+00 3
+25 -4.438192e+00 3
+26 -4.555722e+00 3
+27 -4.667383e+00 3
+28 -4.781272e+00 3
+29 -4.891634e+00 3
+30 -5.004183e+00 3
+31 -5.114064e+00 3
+32 -5.225899e+00 3
+33 -5.335840e+00 3
+34 -5.447445e+00 3
+35 -5.557506e+00 3
+36 -5.669034e+00 3
+37 -5.779359e+00 3
+38 -5.890662e+00 3
+39 -6.001243e+00 3
+40 -6.112833e+00 3
+41 -6.223011e+00 3
+42 -6.333503e+00 3
+43 -6.443716e+00 3
+44 -6.553951e+00 3
+45 -6.663204e+00 3
+46 -6.772606e+00 3
+47 -6.882270e+00 3
+48 -6.992618e+00 3
+49 -7.102596e+00 3
+50 -7.214220e+00 3
+
+#epsilon= 7.621991e+00  dim= 3
+
+#epsilon= 7.621991e+00  dim= 4
+
+#epsilon= 7.621991e+00  dim= 5
+
+#epsilon= 7.621991e+00  dim= 6
+
+#epsilon= 7.621991e+00  dim= 7
+
+#epsilon= 7.621991e+00  dim= 8
+
+#epsilon= 7.621991e+00  dim= 9
+
+#epsilon= 7.621991e+00  dim= 10
+
+#epsilon= 7.621991e+00  dim= 11
+
+#epsilon= 7.621991e+00  dim= 12
+
+#epsilon= 7.621991e+00  dim= 13
+
+#epsilon= 7.621991e+00  dim= 14
+
+#epsilon= 7.621991e+00  dim= 15
+
+#epsilon= 7.621991e+00  dim= 16
+
+#epsilon= 7.621991e+00  dim= 17
+
+#epsilon= 7.621991e+00  dim= 18
+
+#epsilon= 7.621991e+00  dim= 19
+
+#epsilon= 7.621991e+00  dim= 20
+
+#epsilon= 7.621991e+00  dim= 21
+
+#epsilon= 7.621991e+00  dim= 22
+
+#epsilon= 7.621991e+00  dim= 23
+
+#epsilon= 7.621991e+00  dim= 24
+
+#epsilon= 7.621991e+00  dim= 25
+
+#epsilon= 7.621991e+00  dim= 26
+
+#epsilon= 7.621991e+00  dim= 27
+
+#epsilon= 7.621991e+00  dim= 28
+
+#epsilon= 7.621991e+00  dim= 29
+
+#epsilon= 7.621991e+00  dim= 30
+
+#epsilon= 7.621991e+00  dim= 31
+
+#epsilon= 7.621991e+00  dim= 32
+
+#epsilon= 7.621991e+00  dim= 33
+
+#epsilon= 7.621991e+00  dim= 34
+
+#epsilon= 7.621991e+00  dim= 35
+
+#epsilon= 7.621991e+00  dim= 36
+
+#epsilon= 7.621991e+00  dim= 37
+
+#epsilon= 7.621991e+00  dim= 38
+
+#epsilon= 7.621991e+00  dim= 39
+
+#epsilon= 7.621991e+00  dim= 40
+
+#epsilon= 7.621991e+00  dim= 41
+
+#epsilon= 7.621991e+00  dim= 42
+
+#epsilon= 7.621991e+00  dim= 43
+
+#epsilon= 7.621991e+00  dim= 44
+
+#epsilon= 7.621991e+00  dim= 45
+
+#epsilon= 7.621991e+00  dim= 46
+
+#epsilon= 7.621991e+00  dim= 47
+
+#epsilon= 7.621991e+00  dim= 48
+
+#epsilon= 7.621991e+00  dim= 49
+
+#epsilon= 7.621991e+00  dim= 50
+
+#epsilon= 7.621991e+00  dim= 51
+
+#epsilon= 7.621991e+00  dim= 52
+
+#epsilon= 7.621991e+00  dim= 53
+
+#epsilon= 7.621991e+00  dim= 54
+
+#epsilon= 7.621991e+00  dim= 55
+
+#epsilon= 7.621991e+00  dim= 56
+
+#epsilon= 7.621991e+00  dim= 57
+
+#epsilon= 7.621991e+00  dim= 58
+
+#epsilon= 7.621991e+00  dim= 59
+
+#epsilon= 7.621991e+00  dim= 60
+
+#epsilon= 7.621991e+00  dim= 61
+
+#epsilon= 7.621991e+00  dim= 62
+
+#epsilon= 7.621991e+00  dim= 63
+
+#epsilon= 7.621991e+00  dim= 64
+
+#epsilon= 7.621991e+00  dim= 65
+
+#epsilon= 7.621991e+00  dim= 66
+
+#epsilon= 7.621991e+00  dim= 67
+
+#epsilon= 7.621991e+00  dim= 68
+
+#epsilon= 7.621991e+00  dim= 69
+
+#epsilon= 7.621991e+00  dim= 70
+
+#epsilon= 7.621991e+00  dim= 71
+
+#epsilon= 7.621991e+00  dim= 72
+
+#epsilon= 7.621991e+00  dim= 73
+
+#epsilon= 7.621991e+00  dim= 74
+
+#epsilon= 7.621991e+00  dim= 75
+
+#epsilon= 7.621991e+00  dim= 76
+
+#epsilon= 7.621991e+00  dim= 77
+
+#epsilon= 7.621991e+00  dim= 78
+
+#epsilon= 7.621991e+00  dim= 79
+
+#epsilon= 7.621991e+00  dim= 80
+
+#epsilon= 7.621991e+00  dim= 81
+
+#epsilon= 7.621991e+00  dim= 82
+
+#epsilon= 7.621991e+00  dim= 83
+
+#epsilon= 7.621991e+00  dim= 84
+
+#epsilon= 7.621991e+00  dim= 85
+
+#epsilon= 7.621991e+00  dim= 86
+
+#epsilon= 7.621991e+00  dim= 87
+
+#epsilon= 7.621991e+00  dim= 88
+
+#epsilon= 7.621991e+00  dim= 89
+
+#epsilon= 7.621991e+00  dim= 90
+
+#epsilon= 7.621991e+00  dim= 91
+
+#epsilon= 7.621991e+00  dim= 92
+
+#epsilon= 7.621991e+00  dim= 93
+
+#epsilon= 7.621991e+00  dim= 94
+
+#epsilon= 7.621991e+00  dim= 95
+
+#epsilon= 7.621991e+00  dim= 96
+
+#epsilon= 7.621991e+00  dim= 97
+
+#epsilon= 7.621991e+00  dim= 98
+
+#epsilon= 7.621991e+00  dim= 99
+
+#epsilon= 7.621991e+00  dim= 100
+
+#epsilon= 1.500000e+01  dim= 2
+0 -3.452060e+00 4
+1 -1.640353e+00 4
+2 -8.244953e-01 4
+3 -6.181430e-01 4
+4 -6.692939e-01 4
+5 -1.211840e+00 4
+6 -5.788636e-01 4
+7 -7.266568e-01 4
+8 -2.144821e+00 4
+9 -1.199710e+00 4
+10 -1.042861e+00 4
+11 -2.186167e+00 4
+12 -1.612012e+00 4
+13 -1.854101e+00 4
+14 -1.851447e+00 4
+15 -2.005802e+00 4
+16 -2.713275e+00 4
+17 -2.420552e+00 4
+18 -2.559079e+00 4
+19 -3.104400e+00 4
+20 -3.181704e+00 4
+21 -3.380427e+00 4
+22 -3.718495e+00 4
+23 -3.869183e+00 4
+24 -4.023544e+00 4
+25 -4.160358e+00 4
+26 -4.284943e+00 4
+27 -4.405841e+00 4
+28 -4.520753e+00 4
+29 -4.635451e+00 4
+30 -4.747238e+00 4
+31 -4.859602e+00 4
+32 -4.970303e+00 4
+33 -5.081841e+00 4
+34 -5.192309e+00 4
+35 -5.303546e+00 4
+36 -5.414084e+00 4
+37 -5.525258e+00 4
+38 -5.635801e+00 4
+39 -5.747071e+00 4
+40 -5.857879e+00 4
+41 -5.968506e+00 4
+42 -6.078536e+00 4
+43 -6.189199e+00 4
+44 -6.299066e+00 4
+45 -6.408831e+00 4
+46 -6.518266e+00 4
+47 -6.628580e+00 4
+48 -6.738821e+00 4
+49 -6.848966e+00 4
+50 -6.960015e+00 4
+
+#epsilon= 1.500000e+01  dim= 3
+
+#epsilon= 1.500000e+01  dim= 4
+
+#epsilon= 1.500000e+01  dim= 5
+
+#epsilon= 1.500000e+01  dim= 6
+
+#epsilon= 1.500000e+01  dim= 7
+
+#epsilon= 1.500000e+01  dim= 8
+
+#epsilon= 1.500000e+01  dim= 9
+
+#epsilon= 1.500000e+01  dim= 10
+
+#epsilon= 1.500000e+01  dim= 11
+
+#epsilon= 1.500000e+01  dim= 12
+
+#epsilon= 1.500000e+01  dim= 13
+
+#epsilon= 1.500000e+01  dim= 14
+
+#epsilon= 1.500000e+01  dim= 15
+
+#epsilon= 1.500000e+01  dim= 16
+
+#epsilon= 1.500000e+01  dim= 17
+
+#epsilon= 1.500000e+01  dim= 18
+
+#epsilon= 1.500000e+01  dim= 19
+
+#epsilon= 1.500000e+01  dim= 20
+
+#epsilon= 1.500000e+01  dim= 21
+
+#epsilon= 1.500000e+01  dim= 22
+
+#epsilon= 1.500000e+01  dim= 23
+
+#epsilon= 1.500000e+01  dim= 24
+
+#epsilon= 1.500000e+01  dim= 25
+
+#epsilon= 1.500000e+01  dim= 26
+
+#epsilon= 1.500000e+01  dim= 27
+
+#epsilon= 1.500000e+01  dim= 28
+
+#epsilon= 1.500000e+01  dim= 29
+
+#epsilon= 1.500000e+01  dim= 30
+
+#epsilon= 1.500000e+01  dim= 31
+
+#epsilon= 1.500000e+01  dim= 32
+
+#epsilon= 1.500000e+01  dim= 33
+
+#epsilon= 1.500000e+01  dim= 34
+
+#epsilon= 1.500000e+01  dim= 35
+
+#epsilon= 1.500000e+01  dim= 36
+
+#epsilon= 1.500000e+01  dim= 37
+
+#epsilon= 1.500000e+01  dim= 38
+
+#epsilon= 1.500000e+01  dim= 39
+
+#epsilon= 1.500000e+01  dim= 40
+
+#epsilon= 1.500000e+01  dim= 41
+
+#epsilon= 1.500000e+01  dim= 42
+
+#epsilon= 1.500000e+01  dim= 43
+
+#epsilon= 1.500000e+01  dim= 44
+
+#epsilon= 1.500000e+01  dim= 45
+
+#epsilon= 1.500000e+01  dim= 46
+
+#epsilon= 1.500000e+01  dim= 47
+
+#epsilon= 1.500000e+01  dim= 48
+
+#epsilon= 1.500000e+01  dim= 49
+
+#epsilon= 1.500000e+01  dim= 50
+
+#epsilon= 1.500000e+01  dim= 51
+
+#epsilon= 1.500000e+01  dim= 52
+
+#epsilon= 1.500000e+01  dim= 53
+
+#epsilon= 1.500000e+01  dim= 54
+
+#epsilon= 1.500000e+01  dim= 55
+
+#epsilon= 1.500000e+01  dim= 56
+
+#epsilon= 1.500000e+01  dim= 57
+
+#epsilon= 1.500000e+01  dim= 58
+
+#epsilon= 1.500000e+01  dim= 59
+
+#epsilon= 1.500000e+01  dim= 60
+
+#epsilon= 1.500000e+01  dim= 61
+
+#epsilon= 1.500000e+01  dim= 62
+
+#epsilon= 1.500000e+01  dim= 63
+
+#epsilon= 1.500000e+01  dim= 64
+
+#epsilon= 1.500000e+01  dim= 65
+
+#epsilon= 1.500000e+01  dim= 66
+
+#epsilon= 1.500000e+01  dim= 67
+
+#epsilon= 1.500000e+01  dim= 68
+
+#epsilon= 1.500000e+01  dim= 69
+
+#epsilon= 1.500000e+01  dim= 70
+
+#epsilon= 1.500000e+01  dim= 71
+
+#epsilon= 1.500000e+01  dim= 72
+
+#epsilon= 1.500000e+01  dim= 73
+
+#epsilon= 1.500000e+01  dim= 74
+
+#epsilon= 1.500000e+01  dim= 75
+
+#epsilon= 1.500000e+01  dim= 76
+
+#epsilon= 1.500000e+01  dim= 77
+
+#epsilon= 1.500000e+01  dim= 78
+
+#epsilon= 1.500000e+01  dim= 79
+
+#epsilon= 1.500000e+01  dim= 80
+
+#epsilon= 1.500000e+01  dim= 81
+
+#epsilon= 1.500000e+01  dim= 82
+
+#epsilon= 1.500000e+01  dim= 83
+
+#epsilon= 1.500000e+01  dim= 84
+
+#epsilon= 1.500000e+01  dim= 85
+
+#epsilon= 1.500000e+01  dim= 86
+
+#epsilon= 1.500000e+01  dim= 87
+
+#epsilon= 1.500000e+01  dim= 88
+
+#epsilon= 1.500000e+01  dim= 89
+
+#epsilon= 1.500000e+01  dim= 90
+
+#epsilon= 1.500000e+01  dim= 91
+
+#epsilon= 1.500000e+01  dim= 92
+
+#epsilon= 1.500000e+01  dim= 93
+
+#epsilon= 1.500000e+01  dim= 94
+
+#epsilon= 1.500000e+01  dim= 95
+
+#epsilon= 1.500000e+01  dim= 96
+
+#epsilon= 1.500000e+01  dim= 97
+
+#epsilon= 1.500000e+01  dim= 98
+
+#epsilon= 1.500000e+01  dim= 99
+
+#epsilon= 1.500000e+01  dim= 100
+

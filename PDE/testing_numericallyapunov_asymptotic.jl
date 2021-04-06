@@ -13,8 +13,8 @@ function dolyap(x; ks=1:100, mm=1:3, DD=1:5:100, tt=1:5:100, Δt = 1)
 				#skip
 			else
 				R = embed(x, D, tau)
-				E = numericallyapunov(R, ks; distance = di, ntype = NeighborNumber(m))
-				#E = numericallyapunov(R, ks; distance = di, ntype = WithinRange(m*std(x)/(maximum(x)-minimum(x))))
+				#E = numericallyapunov(R, ks; distance = di, ntype = NeighborNumber(m))
+				E = numericallyapunov(R, ks; distance = di, ntype = WithinRange(m*std(x)))
 				
 				# gives the linear slope, i.e. the Lyapunov exponent
 				λ = linear_region(ks.*Δt, E)[2]
@@ -105,28 +105,38 @@ function getasymptoticperiodicity(x)
 end
 
 plt.style.use("seaborn-paper")
-fig,axs = plt.subplots(3, 1, figsize=(5,6), sharex=true, constrained_layout=true)
-K = []
+fig,axs = plt.subplots(3, 2, figsize=(5,6), sharey=true, constrained_layout=true)
 
-for n=400:-1:40
+for (nn,n) in enumerate(400:-5:200)#:-1:390)
+
 	dat = readdlm("./tisean/dats/APDs_$(n).dat")[:]
+
+	inds, ll = fit_sequence(dat)
 	
-	Kc = [testchaos01(dat .+ (0.0).*mean(dat).*(2.0.*rand(Float64, length(dat)).-1.0), c, length(dat)÷10) for c in (3π/5).*rand(Float64,2^13) .+ π/4]
-	push!(K, Kc)
+	ks=1:100
+
+	print("\n n=$n\n")
+
+	for mm=3
+		
+		for (ii,tt) in enumerate(1:3)
+			λ = dolyap(dat; ks=ks, mm=mm, DD=1:1:200, tt=tt)
+			axs[ii,1].plot(1:length(λ), ll.*ones(length(λ)), "--C$(nn)", label="truth")
+			axs[ii,1].plot(1:length(λ), λ, ".C$(nn)", label="BCL=$(n) [ms]")
+			axs[ii,1].set_xlabel("\$ D \$")
+			#axs[ii,1].set_ylabel("\$ \\lambda \$")
+			axs[ii,1].set_title("\$\\tau = \$ $(tt)")
+		end
+		
+		for (jj,DD) in enumerate(2:4)
+			λ = dolyap(dat; ks=ks, mm=mm, DD=DD, tt=1:1:200)
+			axs[jj,2].plot(1:length(λ), ll.*ones(length(λ)), "--C$(nn)", label="truth")
+			axs[jj,2].plot(1:length(λ), λ, ".C$(nn)", label="BCL=$(n) [ms]")
+			axs[jj,2].set_xlabel("\$ \\tau \$")
+			#axs[jj,2].legend(loc=0,edgecolor="none")
+			axs[jj,2].set_title("\$ D = \$ $(DD)")
+		end
+	end
 	
-	λ = dolyap(dat; mm=2, DD=100:1:200, tt=1)
-	#λ = λ[(end-25):end]
-	
-	inds, ll = fit_sequence(dat); 
-	
-	axs[1].plot(n.*ones(size(dat)), dat, ".k", linestyle="none", alpha=0.3)
-	axs[2].violinplot(K[end], [n], showmeans=true, showextrema=true, showmedians=true)
-	axs[3].plot(n.*ones(size(λ)), λ, ".k", linestyle="none", alpha=0.3)
-	axs[3].violinplot(λ, [n], showmeans=true, showextrema=true, showmedians=true)
-	axs[3].plot(n, ll, "or", linestyle="none")
 end
-axs[3].set_xlabel("BCL [ms]")
-axs[3].set_ylabel("\$ \\lambda \$ [ms\$^{-1}\$]")
-axs[2].set_ylabel("\$ K_c \$")
-axs[1].set_ylabel("APD [ms]")
 

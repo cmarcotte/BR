@@ -114,7 +114,7 @@ for n=400:-1:40
 	Kc = [testchaos01(dat .+ (0.0).*mean(dat).*(2.0.*rand(Float64, length(dat)).-1.0), c, length(dat)÷10) for c in (3π/5).*rand(Float64,2^13) .+ π/4]
 	push!(K, Kc)
 	
-	λ = dolyap(dat; mm=3, DD=70:2:80, tt=1)
+	λ = dolyap(dat; mm=3, DD=70:1:80, tt=70:1:80)
 	
 	inds, ll = fit_sequence(dat); 
 	

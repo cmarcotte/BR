@@ -13,6 +13,9 @@ function dolyap(x; ks=1:100, mm=1:3, DD=1:5:100, tt=1:5:100, Δt = 1)
 				#skip
 			else
 				R = embed(x, D, tau)
+				if size(R,2) <= maximum(ks)
+					ks = ks[1:end÷2]
+				end
 				E = numericallyapunov(R, ks; distance = di, ntype = NeighborNumber(m))
 				#E = numericallyapunov(R, ks; distance = di, ntype = WithinRange(m*std(x)/(maximum(x)-minimum(x))))
 				
@@ -129,4 +132,6 @@ axs[3].set_xlabel("BCL [ms]")
 axs[3].set_ylabel("\$ \\lambda \$ [ms\$^{-1}\$]")
 axs[2].set_ylabel("\$ K_c \$")
 axs[1].set_ylabel("APD [ms]")
+plt.savefig("./fig.svg", bbox_inches="tight")
+plt.close()
 
